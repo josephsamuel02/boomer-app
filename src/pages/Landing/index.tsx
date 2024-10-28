@@ -1,4 +1,4 @@
- // Adjust the path as necessary
+// Adjust the path as necessary
 
 import Adverts from "./Adverts";
 import Footer from "./Footer";
@@ -10,21 +10,20 @@ import Trending from "./Trending";
 
 const Landing = () => {
   return (
-    <div className="w-full h-full flex flex-col text-[#ffffff]">
+    <div className="w-full h-full flex flex-col">
       <Navbar />
 
-      <Trending/>
+      <Trending />
 
-      <LatestUploads/>
+      <LatestUploads />
 
-      <Recommends/>
-      
-      <Adverts/>
+      <Recommends />
 
-      <NewSerires/>
+      <Adverts />
 
-      <Footer/>
-      
+      <NewSerires />
+
+      <Footer />
     </div>
   );
 };

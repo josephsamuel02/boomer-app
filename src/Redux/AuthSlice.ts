@@ -7,7 +7,7 @@ export const UserSignup = createAsyncThunk(
   async (data: object, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_ARTSONY_TEST_API}/auth/signup`,
+        `${import.meta.env.VITE_BOOMER_TEST_API}/auth/signup`,
         data
       );
       // console.log(response.data);
@@ -26,13 +26,13 @@ export const LoginUser = createAsyncThunk(
     try {
       console.log(data);
 
-      const response = await axios.post(
-        `${import.meta.env.VITE_ARTSONY_TEST_API}/auth/login`,
+      const response = await axios.get(
+        `${import.meta.env.VITE_BOOMER_TEST_API}/auth/login`,
         data
       );
 
       if (response.data.access_token) {
-        localStorage.setItem("ASY_A_Token", response.data.access_token);
+        localStorage.setItem("boomer_token", response.data.access_token);
       }
 
       console.log(response.data);
