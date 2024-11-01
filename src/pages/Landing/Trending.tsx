@@ -93,13 +93,12 @@ const Trending = () => {
 
         <div className="flex flex-col mt-3">
           <div className="relative flex flex-row items-center justify-between">
-            {/* Trending Cards */}
             <div className="flex flex-row  w-full overflow-x-scroll">
               <div className="flex flex-row h-[270px] w-auto  mr-36 ">
                 {trendData.map((d, i) => (
                   <div
                     key={i}
-                    className="m-2  w-[300px] h-[250px] bg-black rounded-md border border-[#a2a3a3ad]   transition-transform duration-300 ease-in-out transform hover:scale-105  "
+                    className="m-2  w-[300px] h-[250px] bg-black rounded-md shadow shadow-[#ffffff44]  transition-transform duration-300 ease-in-out transform hover:scale-105  "
                   >
                     <div
                       className="relative flex items-end justify-end w-full h-[60%] bg-cover bg-center rounded-md"
@@ -134,7 +133,6 @@ const Trending = () => {
                 ))}
               </div>
             </div>
-            {/* Next Button */}
           </div>
         </div>
       </div>

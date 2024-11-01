@@ -1,7 +1,10 @@
 const PUBLIC_ROUTES = {
+  //PUBLIC ROUTES
   LANDING_PAGE: "/",
   EXPLORE_PAGE: "/explore",
   MOVIE: "/movie",
+  UPLOAD: "/upload",
+
   //AUTHENTICATION
   LOGIN: "/login",
   SIGNUP: "/signup",
@@ -9,7 +12,6 @@ const PUBLIC_ROUTES = {
   FORGOT_PASSWORD: "/forgot_password",
   CONFIRM_PASSWORD: "/confirm_password",
 
-  SEARCH: "/search",
   //USER ACTIONS
   OTHER_USERS_PROFILE: "/user_profile",
   MY_PROFILE: "/my_profile",

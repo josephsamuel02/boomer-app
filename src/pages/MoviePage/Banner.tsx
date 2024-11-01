@@ -1,4 +1,5 @@
 import { MdStar } from "react-icons/md";
+import PUBLIC_ROUTES from "../../utils/PublicRoutes";
 
 const Banner = () => {
   return (
@@ -15,10 +16,11 @@ const Banner = () => {
           Strange Darling
         </h3>
         <h3 className=" mt-4 text-xl font-bold text-white font-Raleway ">Synopsis</h3>
-        <p className="text-sm  text-white font-nunito   ">
+        <p className=" line-clamp-4 text-sm  text-white font-nunito">
           In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to
           demonstrate the visual form of a document or a typeface without relying on meaningful
           content. Lorem ipsum may be used as a placeholder before the final copy is available
+          content.
         </p>
         <div className="mt-2 w-full h-auto flex flex-col md:flex-row py-2">
           <h3 className="text-md md:text-lg  text-white font-Roboto font-bold flex flex-row items-center ">
@@ -31,6 +33,17 @@ const Banner = () => {
           <h3 className="mx-3 text-sm md:text-md text-white px-3 py-1 font-Raleway text-center bg-[#7775753d] border border-[#ffffffd8]  rounded-2xl">
             Action | Thriller | Comedy
           </h3>
+          <a
+            href={PUBLIC_ROUTES.MY_PROFILE}
+            className=" italic line-clamp-1 w-auto mx-3 text-xs  hover:text-blue-700 text-white flex flex-row items-center  py-1 font-Raleway    rounded-2xl"
+          >
+            Uploaded by @Easy_man
+            <img
+              src="/images/spider.jpg"
+              alt=""
+              className="mx-1 w-5 h-5 rounded-full object-cover"
+            />
+          </a>
         </div>
         <div className="m-auto mt-5 w-full md:w-3/4 h-[250px] md:h-[210px] lg:h-[310px]  flex flex-col items-center  ">
           <iframe

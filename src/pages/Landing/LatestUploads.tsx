@@ -1,26 +1,10 @@
 import { FaStar } from "react-icons/fa";
 import { useState } from "react";
+import PUBLIC_ROUTES from "../../utils/PublicRoutes";
 
 const LatestUploads = () => {
   // const navigate = useNavigate();
-  // const trendData = [
-  //   { title: "Poco loco", rating: 6.8, image: "/images/poco.jpg", genre: "Animation" },
-  //   { title: "Vampire's Diary", rating: 8.0, image: "/images/Vdiary.jpg", genre: "Horror" },
-  //   { title: "Mr Bean", rating: 9.0, image: "/images/bean.jpg", genre: "Comedy" },
-  //   { title: "Avengers", rating: 8.0, image: "/images/aveng.jpg", genre: "Thriller" },
-  //   { title: "Spong Bob", rating: 9.0, image: "/images/bob.jpg", genre: "Comedy" },
-  //   { title: "John Wick 4", rating: 9.3, image: "/images/jwk.jpg", genre: "Action" },
-  //   { title: "Aquaman", rating: 8.5, image: "/images/aquam.jpg", genre: "Drama" },
-  //   { title: "Transformer", rating: 7.4, image: "/images/trans.jpg", genre: "Series" },
-  //   { title: "Game of Thrones", rating: 6.8, image: "/images/game.jpg", genre: "Series" },
-  //   { title: "True Blood", rating: 8.0, image: "/images/blood.jpg", genre: "Horror" },
-  //   { title: "Spider Man", rating: 9.0, image: "/images/spider.jpg", genre: "Action" },
-  //   { title: "Mr Bones", rating: 6.8, image: "/images/mrbones.jpeg", genre: "Comedy" },
-  //   { title: "Avatar", rating: 8.0, image: "/images/avata.jpg", genre: "Animation" },
-  //   { title: "Jumangi", rating: 9.0, image: "/images/juma.avif", genre: "Action" },
 
-  //   // Add more movies if needed
-  // ];
   const trendData = [
     {
       title: "John Wick 4",
@@ -132,7 +116,7 @@ const LatestUploads = () => {
   return (
     <div className="w-full h-auto mt-16 px-4 md:px-6 flex flex-col">
       {/* Search Bar with Button */}
-      <div className="flex items-center  rounded-lg  ">
+      <div className="flex items-center md:mb-6 rounded-lg  ">
         <input
           type="text"
           placeholder="Search by title or genre..."
@@ -140,40 +124,39 @@ const LatestUploads = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button className="text-[12px] md:text-[16px] text-white text-center px-3    py-y md:py-2.5 bg-[#F25B38] hover:bg-[#efa898] font-roboto   rounded-r-md cursor-pointer">
+        <button className="text-[12px] md:text-[16px] text-white text-center px-3 py-3 md:py-2.5 bg-primary hover:bg-[#cc5638] font-roboto rounded-r-[5px] cursor-pointer">
           Search
         </button>
       </div>
-
-      <div className=" w-full flex flex-row items-center  p-4 pb-5">
-        <h1 className="text-3xl pt-6 font-Raleway">Latest Uploads</h1>
-        {/* Genre Buttons (Limit to 5) */}
-        <div className="flex flex-row   ml-auto mr-5 w-auto space-x-2">
-          {genres.map((genre, index) => (
+      <div className=" w-full flex flex-col md:flex-row md:items-center  p-4 pb-5">
+        <h1 className=" text-lg md:text-2xl py-6 md:pb-auto   font-Raleway">Latest Uploads</h1>
+        <div className="flex w-auto md:ml-auto  overflow-x-scroll">
+          <div className="flex flex-row w-auto mr-5 ">
+            {/* Clear Filter Button */}
             <button
-              key={index}
-              className={`mx-0.5 border border-whitesmoke rounded-md w-[90px] h-[40px] hover:bg-[#F25B38] ${
-                selectedGenre === genre ? "bg-[#F25B38] text-white" : ""
+              className={`mr-1 border border-whitesmoke rounded-md w-[50px] h-[40px] hover:bg-[#F25B38] ${
+                selectedGenre == null ? "bg-primary" : "bg-black"
               }`}
-              onClick={() => setSelectedGenre(genre)}
+              onClick={() => {
+                setSelectedGenre(null);
+              }}
             >
-              {genre}
+              All
             </button>
-          ))}
-
-          {/* Clear Filter Button */}
-          <button
-            className="mx-0.5   border border-whitesmoke rounded-md w-[50px] h-[40px] hover:bg-[#F25B38]"
-            onClick={() => {
-              setSelectedGenre(null);
-              setSearchTerm("");
-            }}
-          >
-            All
-          </button>
+            {genres.map((genre, index) => (
+              <button
+                key={index}
+                className={`mx-0.5 shadow  shadow-[#ffffff1f] border border-[#ffffff49] rounded-md w-[90px] h-[40px] hover:bg-[#F25B38] ${
+                  selectedGenre === genre ? "bg-[#F25B38] text-white" : ""
+                }`}
+                onClick={() => setSelectedGenre(genre)}
+              >
+                {genre}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
-
       {/* Movie Cards */}
       <div className="flex w-full overflow-x-scroll">
         <div className="flex flex-row py-4 w-auto mr-20 ">
@@ -212,6 +195,12 @@ const LatestUploads = () => {
           <p className="text-center text-red-500">No movies found</p>
         )}
       </div>
+      <a
+        href={`${PUBLIC_ROUTES.EXPLORE_PAGE}?type='movies'`}
+        className="w-[200px] h-auto mt-4 p-3 flex flex-row bg-primary hover:bg-[#ad4831]  rounded-full cursor-pointer"
+      >
+        <p className="mx-auto text-md   text-white">See All New Uploads</p>
+      </a>
     </div>
   );
 };

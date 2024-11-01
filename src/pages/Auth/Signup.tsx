@@ -6,6 +6,7 @@ import { UserSignup } from "../../Redux/AuthSlice";
 import { AppDispatch } from "../../Redux/store";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../../components/Loading";
+import Nav from "../../components/Navbar";
 
 function Signup() {
   const dispatch = useDispatch<AppDispatch>();
@@ -36,7 +37,8 @@ function Signup() {
     // console.log(setSignupData);
   };
   return (
-    <div className="bg-[#070503] h-screen w-screen flex flex-col items-center justify-center">
+    <div className="bg-[#070503] h-screen w-screen md:pt-20 flex flex-col items-center justify-center">
+      <Nav />
       <div className="w-[380px] h-auto py-8 bg-black border border-[#fff8]  bg-opacity-60 backdrop-filter backdrop-blur-sm rounded-xl flex flex-col justify-center items-center px-6  ">
         {/* <img
           src="https://res.cloudinary.com/dyjo2mvqb/image/upload/v1716659881/Layer_6_qlz3mp.png"
@@ -94,13 +96,13 @@ function Signup() {
           </span>
         </form>
 
-        <div className="flex flex-row  items-center px-2  w-[100px] rounded-md mt-2 bg-white cursor-pointer">
+        <div className="flex flex-row  items-center px-2  w-[100px] rounded  mt-2 bg-white cursor-pointer">
           <img
             src="https://res.cloudinary.com/dyjo2mvqb/image/upload/v1716794710/google_iztwr2.png"
             alt="Google"
             className="w-5 h-5 object-cover rounded-full bg-white"
           />
-          <p className="text-xl font-Raleway font-bold text-sky-950">oogle</p>
+          <p className="text-lg font-Raleway font-bold text-sky-950">oogle</p>
         </div>
         <span className="text-center py-5 font-Poppins text-[12px] font-light text-white text-xs mt-1.5">
           Already have an Account?

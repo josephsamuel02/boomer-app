@@ -1,4 +1,3 @@
-import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -17,23 +16,25 @@ const Adverts = () => {
   };
 
   const cardData = [
-    { title: "Card 1", description: "This is card 1", image: "/images/netflix.jpg" },
-    { title: "Card 2", description: "This is card 2", image: "/images/dstv.jpg" },
+    { title: "Card 1", description: "This is card 1", image: "/images/aveng.jpg" },
+    { title: "Card 2", description: "This is card 2", image: "/images/bean.jpg" },
     { title: "Card 3", description: "This is card 3", image: "/images/prime.png" },
-    { title: "Card 2", description: "This is card 2", image: "/images/dstv.jpg" },
+    { title: "Card 2", description: "This is card 2", image: "/images/juma.avif" },
     { title: "Card 3", description: "This is card 3", image: "/images/prime.png" },
     { title: "Card 1", description: "This is card 1", image: "/images/netflix.jpg" },
   ];
 
   return (
-    <div className="container mx-auto mt-24">
+    <div className="  w-full h-auto mx-auto mt-24 ">
       <Slider {...settings}>
         {cardData.map((card, index) => (
-          <div key={index} className="p-4">
-            <div className="p-6 h-[200px] flex flex-col justify-between">
-              <img src={card.image} alt={card.title} className="w-full h-full  mb-4 object-cover" />
-             
-            </div>
+          <div className=" w-auto h-[150px] md:h-[200px]">
+            <img
+              src={card.image}
+              alt={card.title}
+              className="w-auto h-auto md:h-[200px] object-cover"
+              key={index}
+            />
           </div>
         ))}
       </Slider>

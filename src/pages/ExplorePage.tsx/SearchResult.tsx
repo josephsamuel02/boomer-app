@@ -112,10 +112,10 @@ const SearchResult = () => {
         {trendData.map((d, i) => (
           <div
             key={i}
-            className="w-[200px] h-[260px] bg-black border border-customOrange rounded-[10px] mx-auto  my-6  transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+            className="w-[200px] h-[260px] bg-black shadow shadow-[#ffffff44] rounded mx-auto  my-6  transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
           >
             <div
-              className="relative flex items-end justify-center w-full h-[70%] bg-cover bg-center rounded-[10px]"
+              className="relative flex items-end justify-center w-full h-[70%] bg-cover bg-center rounded"
               style={{ backgroundImage: `url(${d.image})` }}
             >
               <div className="absolute right-1 flex justify-center">

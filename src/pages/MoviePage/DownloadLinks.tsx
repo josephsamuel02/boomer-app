@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { FaFilm, FaStar } from "react-icons/fa6";
-import { MdAdd, MdThumbDown, MdThumbUp } from "react-icons/md";
+import { MdAdd, MdClose, MdThumbDown, MdThumbUp } from "react-icons/md";
 import { Tooltip } from "react-tooltip";
 
 const DownloadLinks = () => {
+  const [downloadLinkCard, setDownloadLinkCard] = useState(false);
+
   const trendData = [
     {
       title: "John Wick 4",
@@ -86,17 +89,17 @@ const DownloadLinks = () => {
   const sortedDownloadLinks = Download_Links.sort((a, b) => b.vote - a.vote);
 
   return (
-    <div className="px-4 w-full h-auto my-4">
+    <div className="px-4 w-full h-auto py-4 bg-black">
       <h1 className="text-lg py-1 font-Raleway">You may also like</h1>
-      <div className="flex flex-row  py-3 w-full overflow-x-scroll">
+      <div className="flex flex-row py-3 w-full overflow-x-scroll">
         <div className="flex flex-row  h-auto w-auto  mr-16 ">
           {trendData.map((d, i) => (
             <div
               key={i}
-              className="w-[130px] h-[190px] bg-black border border-[#ffffff59] rounded mx-2 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+              className="w-[130px] h-[190px] bg-black shadow shadow-[#ffffff44] rounded mx-2 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
             >
               <div
-                className="relative flex items-end justify-center w-full h-[70%] bg-cover bg-center rounded-[10px]"
+                className="relative flex items-end justify-center w-full h-[70%] bg-cover bg-center rounded"
                 style={{ backgroundImage: `url(${d.image})` }}
               >
                 <div className="absolute right-1 flex justify-center">
@@ -126,7 +129,7 @@ const DownloadLinks = () => {
         </div>
       </div>
 
-      <h1 className="text-lg py-1 font-Raleway">Download Links</h1>
+      <h1 className="text-lg py-3 mt-6 font-Raleway">Download Links</h1>
       <div className="flex flex-row py-3 w-full overflow-x-scroll">
         <div className="flex flex-row  h-auto w-auto  mr-16 ">
           <div
@@ -134,6 +137,7 @@ const DownloadLinks = () => {
             data-tooltip-content="Add a Download link"
             data-tooltip-place="top"
             className=" relative mx-3 w-10 h-10 bg-white cursor-pointer hover:bg-gray-400 flex  items-center rounded-full"
+            onClick={() => setDownloadLinkCard(true)}
           >
             <Tooltip id="my-tooltip" />
             <MdAdd size={20} color="black" className="m-auto" />
@@ -145,10 +149,11 @@ const DownloadLinks = () => {
               data-tooltip-id="my-tooltip"
               data-tooltip-content={d.link}
               data-tooltip-place="top"
-              className=" mx-3 w-52  px-3 py-1 bg-white flex flex-row items-center rounded-full"
+              className=" mx-3 w-52  px-3 py-1 bg-[#e1e1e2] flex flex-row items-center rounded-full"
             >
               <a
                 href={d.link}
+                target="_blank"
                 className="truncate mr-2 text-xs font-Roboto font-bold w-32  text-black hover:text-blue-600 "
               >
                 {d.link}
@@ -167,6 +172,34 @@ const DownloadLinks = () => {
           ))}
         </div>
       </div>
+
+      {downloadLinkCard && (
+        <div className="w-full h-full fixed left-0 right-0 bottom-0 top-20">
+          <div className="  relative top-28 md:top-20 left-0 right-0 mx-auto w-[96%] md:w-[550px] h-[190px] border-2 border-[#757474] bg-[#0e0d0dd2] rounded-xl z-20">
+            <h3
+              className=" absolute right-2 w-7 ml-auto flex justify-end m-1.5 "
+              onClick={() => setDownloadLinkCard(false)}
+            >
+              <MdClose color="white" size={30} />
+            </h3>
+
+            <h3 className="m-auto mt-3 w-3/4 text-md text-[#fffffff5] font-Railway">
+              Paste a download link for this movie
+            </h3>
+
+            <textarea
+              name="review"
+              placeholder="Download link"
+              className=" resize-none mx-auto px-4 py-2 mt-2 flex w-3/4 h-[60px] bg-[#0e0e0ed5] border border-[#757474] rounded-lg"
+            ></textarea>
+            <input
+              type="button"
+              value="Add"
+              className="flex mx-auto px-4 py-2 mt-5 w-3/4 bg-[#ffea2b] hover:bg-[#ffb52b] rounded-full text-black font-Poppins"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

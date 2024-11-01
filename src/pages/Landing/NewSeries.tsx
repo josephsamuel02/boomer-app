@@ -1,4 +1,5 @@
 import { FaFilm, FaStar } from "react-icons/fa";
+import PUBLIC_ROUTES from "../../utils/PublicRoutes";
 
 const NewSeries = () => {
   const trendData = [
@@ -98,7 +99,7 @@ const NewSeries = () => {
                 {trendData.map((d, i) => (
                   <div
                     key={i}
-                    className="m-2  w-[300px] h-[250px] bg-black rounded-md border border-[#a2a3a3ad]   transition-transform duration-300 ease-in-out transform hover:scale-105  "
+                    className="m-2  w-[300px] h-[250px] bg-black rounded-md shadow shadow-[#ffffff44] transition-transform duration-300 ease-in-out transform hover:scale-105  "
                   >
                     <div
                       className="relative flex items-end justify-end w-full h-[60%] bg-cover bg-center rounded-md"
@@ -136,6 +137,12 @@ const NewSeries = () => {
             {/* Next Button */}
           </div>
         </div>
+        <a
+          href={`${PUBLIC_ROUTES.EXPLORE_PAGE}?type='series'`}
+          className="w-[200px] h-auto mt-4 p-3 flex flex-row bg-primary hover:bg-[#ad4831]  rounded-full cursor-pointer"
+        >
+          <p className="mx-auto text-md   text-white">See All New Series</p>
+        </a>
       </div>
     </div>
   );

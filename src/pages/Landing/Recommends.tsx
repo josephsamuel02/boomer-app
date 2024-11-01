@@ -88,16 +88,16 @@ const Recommends = () => {
   return (
     <div className="w-full h-auto mt-16 px-4 md:px-6 flex flex-col">
       <div className="flex flex-col mx-auto w-full justify-center">
-        <h1 className="text-4xl py-6 font-Raleway">Recommends</h1>
+        <h1 className="text-lg md:text-3xl py-6 md:pb-auto   font-Raleway">Recommends</h1>
         <div className="flex flex-row py-3 w-full overflow-x-scroll">
           <div className="flex flex-row  h-[270px] w-auto  mr-36 ">
             {trendData.map((d, i) => (
               <div
                 key={i}
-                className="w-[200px] h-[260px] bg-black border border-customOrange rounded-[10px] mx-4    transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+                className="w-[200px] h-[260px] bg-black shadow shadow-[#ffffff44] rounded mx-4 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
               >
                 <div
-                  className="relative flex items-end justify-center w-full h-[70%] bg-cover bg-center rounded-[10px]"
+                  className="relative flex items-end justify-center w-full h-[70%] bg-cover bg-center rounded"
                   style={{ backgroundImage: `url(${d.image})` }}
                 >
                   <div className="absolute right-1 flex justify-center">

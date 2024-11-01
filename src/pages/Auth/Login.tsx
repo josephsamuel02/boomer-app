@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../Redux/store";
 import { Loading } from "../../components/Loading";
 import { useNavigate } from "react-router-dom";
+import Nav from "../../components/Navbar";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -42,7 +43,8 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#070503] h-screen w-screen flex flex-col items-center justify-center">
+    <div className="bg-[#070503] h-screen w-screen md:pt-20 flex flex-col items-center justify-center">
+      <Nav />
       <div className="w-[380px] h-auto py-8 bg-black border border-[#fff8]  bg-opacity-60 backdrop-filter backdrop-blur-sm rounded-xl flex flex-col justify-center items-center px-6  ">
         {/* <img
           src="https://res.cloudinary.com/dyjo2mvqb/image/upload/v1716659881/Layer_6_qlz3mp.png"
@@ -52,7 +54,7 @@ const Login: React.FC = () => {
         <h3 className="text-3xl font-Raleway font-bold">BOOMER</h3>
         <form className="flex flex-col gap-3 items-center justify-center" action="">
           <input
-            className="p-0.5 w-[300px] my-2 bg-transparent border-b border-white font-light placeholder-white font-Raleway outline-none text-sm focus:outline-none text-white underline-offset-1 "
+            className="p-0.5 w-[300px] my-2 bg-transparent rounded border-b border-white font-light placeholder-white font-Raleway outline-none text-sm focus:outline-none text-white underline-offset-1 "
             type="email"
             placeholder="Email"
             onChange={(e) =>
@@ -60,7 +62,7 @@ const Login: React.FC = () => {
             }
           />
           <input
-            className="p-0.5 w-[300px] my-2 bg-transparent border-b border-white font-light placeholder-white font-Raleway outline-none text-sm focus:outline-none text-white underline-offset-1 "
+            className="p-0.5 w-[300px] my-2 bg-transparent rounded border-b border-white font-light placeholder-white font-Raleway outline-none text-sm focus:outline-none text-white underline-offset-1 "
             type="password"
             placeholder="Password"
             onChange={(e) =>
@@ -93,13 +95,13 @@ const Login: React.FC = () => {
             with
           </span>
         </form>
-        <div className="flex flex-row  items-center px-2  w-[100px] rounded-md mt-2 bg-white cursor-pointer">
+        <div className="flex flex-row  items-center px-2 justify-items-center w-[100px] rounded mt-2 bg-white cursor-pointer">
           <img
             src="https://res.cloudinary.com/dyjo2mvqb/image/upload/v1716794710/google_iztwr2.png"
             alt="Google"
             className="w-5 h-5 object-cover rounded-full bg-white"
           />
-          <p className="text-xl font-Raleway font-bold text-sky-950">oogle</p>
+          <p className="text-lg font-Raleway font-bold text-sky-950">oogle</p>
         </div>
         <span className="text-center py-3 font-Poppins text-[12px] font-light text-white text-xs mt-1.5">
           Don't have an Account?
@@ -109,7 +111,6 @@ const Login: React.FC = () => {
           for free.
         </span>
       </div>
-
       {loading == "loading" && <Loading />}
     </div>
   );
