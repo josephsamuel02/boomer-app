@@ -15,7 +15,8 @@ function Signup() {
   const status = useSelector((state: any) => state.Auth.status);
 
   const [loading, setLoading] = useState(status);
-  const [signupData, setSignupData] = useState<object>({
+  const [passwordCheck, setPasswordCheck] = useState(status);
+  const [signupData, setSignupData] = useState<object | any>({
     user_name: "",
     email: "",
     password: "",
@@ -23,14 +24,18 @@ function Signup() {
 
   const SignupAction = (e: MouseEvent) => {
     e.preventDefault();
+
+    if (passwordCheck !== signupData.password) {
+      return alert("Password didn't match");
+    }
+
     dispatch(UserSignup(signupData));
     setLoading(true);
 
     setTimeout(() => {
       if (LogInResponse === 200) {
         setLoading(false);
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        window.location.assign;
+        // window.location.assign;
         Navigate(PUBLIC_ROUTES.LANDING_PAGE);
       }
     }, 1000);
@@ -67,14 +72,12 @@ function Signup() {
             className="p-0.5 w-[300px] my-2 bg-transparent border-b border-white font-light placeholder-white font-Raleway outline-none text-sm focus:outline-none text-white underline-offset-1 "
             type="password"
             placeholder="Password"
-            onChange={(e) =>
-              setSignupData((prev: object) => ({ ...prev, password: e.target.value }))
-            }
+            onChange={(e) => setPasswordCheck(e.target.value)}
           />
           <input
             className="p-0.5 w-[300px] my-2 bg-transparent border-b border-white font-light placeholder-white font-Raleway outline-none text-sm focus:outline-none text-white underline-offset-1 "
             type="password"
-            placeholder=" confirm Password"
+            placeholder="confirm Password"
             onChange={(e) =>
               setSignupData((prev: object) => ({ ...prev, password: e.target.value }))
             }

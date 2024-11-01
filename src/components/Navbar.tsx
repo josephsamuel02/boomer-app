@@ -142,11 +142,11 @@ const Nav = () => {
           <p className="line-clamp-1 text-[12px]  ml-2 ">Hi, @Easy_man</p>
         </a>
 
-        {/* <div className="flex-shrink-0 mr-3">
+        <a href={PUBLIC_ROUTES.SIGNUP} className="flex-shrink-0 mr-3">
           <p className="text-[12px] md:text-[16px] text-white text-center px-3 md:px-10 py-1.5 md:py-2 bg-primary hover:bg-[#ad4831] font-Poppins   rounded-full cursor-pointer">
             Sign Up
           </p>
-        </div> */}
+        </a>
       </div>
     </>
   );
