@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { FaFilm, FaStar } from "react-icons/fa6";
 import { MdAdd, MdClose, MdThumbDown, MdThumbUp } from "react-icons/md";
 import { Tooltip } from "react-tooltip";
-
-const DownloadLinks = () => {
+interface compData {
+  downloadLinks: string[];
+}
+const DownloadLinks = ({ downloadLinks: downloadLinks }: compData) => {
   const [downloadLinkCard, setDownloadLinkCard] = useState(false);
 
   const trendData = [
@@ -133,43 +136,45 @@ const DownloadLinks = () => {
       <div className="flex flex-row py-3 w-full overflow-x-scroll">
         <div className="flex flex-row  h-auto w-auto  mr-16 ">
           <div
-            data-tooltip-id="my-tooltip"
+            data-tooltip-id="add-download-link"
             data-tooltip-content="Add a Download link"
             data-tooltip-place="top"
             className=" relative mx-3 w-10 h-10 bg-white cursor-pointer hover:bg-gray-400 flex  items-center rounded-full"
             onClick={() => setDownloadLinkCard(true)}
           >
+            <Tooltip id="add-download-link" />
             <Tooltip id="my-tooltip" />
             <MdAdd size={20} color="black" className="m-auto" />
           </div>
 
-          {sortedDownloadLinks.map((d, i) => (
-            <div
-              key={i}
-              data-tooltip-id="my-tooltip"
-              data-tooltip-content={d.link}
-              data-tooltip-place="top"
-              className=" mx-3 w-52  px-3 py-1 bg-[#e1e1e2] flex flex-row items-center rounded-full"
-            >
-              <a
-                href={d.link}
-                target="_blank"
-                className="truncate mr-2 text-xs font-Roboto font-bold w-32  text-black hover:text-blue-600 "
+          {downloadLinks &&
+            downloadLinks.map((d, i) => (
+              <div
+                key={i}
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content={d}
+                data-tooltip-place="top"
+                className=" mx-3 w-52  px-3 py-1 bg-[#e1e1e2] flex flex-row items-center rounded-full"
               >
-                {d.link}
-              </a>
+                <a
+                  href={d}
+                  target="_blank"
+                  className="truncate mr-2 text-xs font-Roboto font-bold w-32  text-black hover:text-blue-600 "
+                >
+                  {d}
+                </a>
 
-              <MdThumbUp
-                size={14}
-                className="text-green-700 hover:text-green-500 cursor-pointer"
-              />
-              <span className="mx-1 text-black text-sm">{d.vote}</span>
-              <MdThumbDown
-                size={14}
-                className="text-red-700 hover:text-red-500 cursor-pointer"
-              />
-            </div>
-          ))}
+                <MdThumbUp
+                  size={14}
+                  className="text-green-700 hover:text-green-500 cursor-pointer"
+                />
+                <span className="mx-1 text-black text-sm">{5}</span>
+                <MdThumbDown
+                  size={14}
+                  className="text-red-700 hover:text-red-500 cursor-pointer"
+                />
+              </div>
+            ))}
         </div>
       </div>
 

@@ -24,16 +24,59 @@ export const LoginUser = createAsyncThunk(
   "login-user",
   async (data: any, { rejectWithValue }) => {
     try {
-      console.log(data);
-
-      const response = await axios.get(
+      const response = await axios.post(
         `${import.meta.env.VITE_BOOMER_TEST_API}/auth/login`,
         data
       );
 
-      if (response.data.access_token) {
-        localStorage.setItem("boomer_token", response.data.access_token);
+      if (response.data.token) {
+        localStorage.setItem("boomer_token", response.data.token);
       }
+
+      console.log(response.data);
+      return response.data;
+    } catch (error: any) {
+      console.log(error);
+      return rejectWithValue(error.response ? error.response.data : error.message);
+    }
+  }
+);
+
+export const GetMyProfile = createAsyncThunk("my_profile", async (_, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem("boomer_token");
+
+    const response = await axios.get(
+      `${import.meta.env.VITE_BOOMER_TEST_API}/users/my_profile`,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+    return rejectWithValue(error.response ? error.response.data : error.message);
+  }
+});
+
+export const UpdateMyProfile = createAsyncThunk(
+  "update_my_profile",
+  async (data: any, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("boomer_token");
+
+      const response = await axios.put(
+        `${import.meta.env.VITE_BOOMER_TEST_API}/users/update_user`,
+        data,
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      );
 
       console.log(response.data);
       return response.data;
@@ -50,7 +93,7 @@ export const Logout = createAsyncThunk(
     const token = localStorage.getItem("G_A_token");
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_ARTSONY_TEST_API}/users/logout-user`,
+        `${import.meta.env.VITE_BOOMER_TEST_API}/users/logout-user`,
         data,
         {
           headers: {
@@ -70,7 +113,7 @@ export const SendCode = createAsyncThunk(
   async (data: any, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_ARTSONY_TEST_API}/users/send-code`,
+        `${import.meta.env.VITE_BOOMER_TEST_API}/users/send-code`,
         data
       );
       return response.data;
@@ -83,10 +126,9 @@ export const SendCode = createAsyncThunk(
 export const VerifyPhone = createAsyncThunk(
   "verify-phone",
   async (data, { rejectWithValue }) => {
-    console.log(data);
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_ARTSONY_TEST_API}/users/verify-phone`,
+        `${import.meta.env.VITE_BOOMER_TEST_API}/users/verify-phone`,
         data
       );
       return response.data;
@@ -97,7 +139,8 @@ export const VerifyPhone = createAsyncThunk(
 );
 
 const initialState = {
-  user: {},
+  auth: {},
+  myProfile: {},
   status: "idle",
   error: null,
 };
@@ -105,7 +148,13 @@ const initialState = {
 export const authSlice: any = createSlice({
   name: "auth",
   initialState: initialState,
-  reducers: {},
+
+  reducers: {
+    clearState: () => {
+      // This will reset all properties to their initial values
+      return initialState;
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -115,7 +164,7 @@ export const authSlice: any = createSlice({
       })
       .addCase(UserSignup.fulfilled, (state, action: any) => {
         state.status = "succeeded";
-        state.user = action.payload;
+        state.auth = action.payload;
       })
       .addCase(UserSignup.rejected, (state, action: any) => {
         state.status = "failed";
@@ -127,14 +176,38 @@ export const authSlice: any = createSlice({
       })
       .addCase(LoginUser.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.user = action.payload;
+        state.auth = action.payload;
       })
       .addCase(LoginUser.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload as any;
+      })
+      .addCase(GetMyProfile.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(GetMyProfile.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.myProfile = action.payload;
+      })
+      .addCase(GetMyProfile.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload as any;
+      })
+      .addCase(UpdateMyProfile.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(UpdateMyProfile.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.myProfile = action.payload;
+      })
+      .addCase(UpdateMyProfile.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload as any;
       });
   },
 });
 
-// Action creators are generated for each case reducer function
+export const { clearState } = authSlice.actions;
 export default authSlice.reducer;

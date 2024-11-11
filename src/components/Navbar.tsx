@@ -1,14 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SlArrowDown } from "react-icons/sl";
-// import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { BsUpload } from "react-icons/bs";
 import PUBLIC_ROUTES from "../utils/PublicRoutes";
 import { Tooltip } from "react-tooltip";
-
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../Redux/store";
+import { GetMyProfile } from "../Redux/AuthSlice";
+// GetMyProfile
 const Nav = () => {
-  // const dispatch = useDispatch<AppDispatch>();
-  // const navigate = useNavigate();
+  const MyProfile = useSelector((state: any) => state.Auth.myProfile.data);
+
+  const dispatch = useDispatch<AppDispatch>();
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef<any>(null);
 
@@ -17,13 +20,14 @@ const Nav = () => {
       setIsOpen(false);
     }
   };
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  // const [auth, setAuth] = useState(false);
+  const [user, setUser] = useState(MyProfile);
 
   const Genre = {
     title: "Genre",
@@ -51,32 +55,24 @@ const Nav = () => {
     ],
   };
 
-  // const handleKeyDown = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-  //   if (event.key === "Enter") {
-  //     // Trigger the dispatch when Enter is pressed
-  //     // dispatch(ArtSearch({ search_string: searchText }));
-  //     navigate(PUBLIC_ROUTES.SEARCH);
-  //   }
-  // };
+  useEffect(() => {
+    dispatch(GetMyProfile());
+    setUser(MyProfile);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setUser(MyProfile);
+  }, [MyProfile]);
+
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 flex flex-row w-full h-auto px-4 py-4 bg-black border-b border-[#ffffff44] items-center z-20">
-        <a href="/" className=" text-xl md:text-3xl font-bold font-Raleway ml-3 mr-auto">
+      <div className="fixed top-0 left-0 right-0 flex flex-row w-full h-auto px-4 py-4 backdrop-blur-md bg-[#08050571] border-b border-[#ffffff44] items-center z-40">
+        <a href="/" className=" text-xl md:text-3xl font-bold font-Poppins md:ml-3 mr-auto">
           BOOMER
           <img src="" alt="" />
         </a>
-        {/* <div className=" mx-auto h-[40px] md:h-[42px] flex flex-row items-center  rounded-lg  ">
-          <input
-            type="text"
-            placeholder="Search by title or genre..."
-            onChange={(e) => setSearchText(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="px-4 py-1 md:py-2 outline-none text-sm md:text-md h-full w-[130px] md:w-[260px] rounded-l-md border border-[#ffffff93] bg-black text-[#ffffff]"
-          />
-          <button className="text-[12px] md:text-[16px] text-white text-center px-3 h-full md:py-2  bg-[#F25B38] hover:bg-[#efa898] font-roboto   rounded-r-md cursor-pointer">
-            Search
-          </button>
-        </div> */}
+
         <div className="ml-auto mr-20 hidden md:flex flex-row justify-center items-center">
           <a
             href="/"
@@ -117,36 +113,60 @@ const Nav = () => {
             )}
           </div>
         </div>
+        {user?.user_id && (
+          <a
+            href={PUBLIC_ROUTES.UPLOAD}
+            className="flex flex-row items-center mr-1 md:mr-3 px-2 md:px-4 py-2 text-black  hover:text-white bg-[#ffff] hover:bg-[#442727] rounded-full cursor-pointer "
+          >
+            <BsUpload size={18} className="font-bold" />
+            <p className="text-[10px] md:text-[12px] ml-1 font-Poppins ">Upload Movie</p>
+          </a>
+        )}
 
-        <a
-          href={PUBLIC_ROUTES.UPLOAD}
-          className="flex flex-row items-center mr-1 md:mr-3 px-2 md:px-4 py-2 text-black  hover:text-white bg-[#ffff] hover:bg-[#442727] rounded-full cursor-pointer "
-        >
-          <BsUpload size={18} className="font-bold" />
-          <p className="text-[10px] md:text-[12px] ml-1 font-Poppins ">Upload Movie</p>
-        </a>
+        {user?.user_id && (
+          <a
+            href={PUBLIC_ROUTES.MY_PROFILE}
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content="User profile"
+            data-tooltip-place="top"
+            className="w-20 md:w-[140px] ml-2 hover:border border-primary text-white flex flex-row items-center  rounded-full cursor-pointer"
+          >
+            <Tooltip id="my-tooltip" />
+            {user?.profile_img && (
+              <img
+                src={user.profile_img}
+                alt="profile image"
+                className="w-8 h-8 rounded-full object-cover"
+              />
+            )}
+            {!user.profile_img && (
+              <div className=" bg-white rounded-full">
+                <img
+                  src="/images/person-svgrepo-com.svg"
+                  alt="profile image"
+                  className="w-8 h-8 rounded-full object-cover"
+                />
+              </div>
+            )}
 
-        <a
-          href={PUBLIC_ROUTES.MY_PROFILE}
-          data-tooltip-id="my-tooltip"
-          data-tooltip-content="User profile"
-          data-tooltip-place="top"
-          className="w-20 md:w-[140px] ml-2 hover:border border-primary text-white flex flex-row items-center  rounded-full cursor-pointer"
-        >
-          <Tooltip id="my-tooltip" />
-          <img
-            src="/images/spider.jpg"
-            alt="profile image"
-            className="w-8 h-8 rounded-full object-cover"
-          />
-          <p className="line-clamp-1 text-[12px]  ml-2 ">Hi, @Easy_man</p>
-        </a>
+            <p className="line-clamp-1 text-[12px] py-1 ml-2 ">Hi, {user.user_name}</p>
+          </a>
+        )}
 
-        <a href={PUBLIC_ROUTES.SIGNUP} className="flex-shrink-0 mr-3">
-          <p className="text-[12px] md:text-[16px] text-white text-center px-3 md:px-10 py-1.5 md:py-2 bg-primary hover:bg-[#ad4831] font-Poppins   rounded-full cursor-pointer">
-            Sign Up
-          </p>
-        </a>
+        {!user?.user_id && (
+          <a href={PUBLIC_ROUTES.SIGNUP} className="flex-shrink-0 mr-3">
+            <p className="text-[12px] md:text-[16px] text-white text-center px-3 md:px-10 py-1.5 md:py-2 bg-primary hover:bg-[#ad4831] font-Poppins   rounded-full cursor-pointer">
+              Sign Up
+            </p>
+          </a>
+        )}
+        {!user?.user_id && (
+          <a href={PUBLIC_ROUTES.LOGIN} className="flex-shrink-0 mr-3">
+            <p className="text-[12px] md:text-[16px] text-white text-center px-3 md:px-10 py-1.5 md:py-2 bg-primary hover:bg-[#ad4831] font-Poppins   rounded-full cursor-pointer">
+              Login
+            </p>
+          </a>
+        )}
       </div>
     </>
   );

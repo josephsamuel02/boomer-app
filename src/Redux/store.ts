@@ -2,11 +2,13 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import authSlice from "./AuthSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
-import postArtworkSlice from "./PostArtwork";
+import MovieSlice from "./Movie";
+import ReviewSlice from "./Reviews";
 
 const reducers = combineReducers({
   Auth: authSlice,
-  PostArtwork: postArtworkSlice,
+  Movies: MovieSlice,
+  Review: ReviewSlice,
 });
 
 const persistConfig = {

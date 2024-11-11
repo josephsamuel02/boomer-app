@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PUBLIC_ROUTES from "../../utils/PublicRoutes";
-import { LoginUser } from "../../Redux/AuthSlice";
+import { clearState, LoginUser } from "../../Redux/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../Redux/store";
 import { Loading } from "../../components/Loading";
@@ -11,7 +11,7 @@ import Nav from "../../components/Navbar";
 const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const Navigate = useNavigate();
-  const LogInResponse = useSelector((state: any) => state.Auth.user.status);
+  const LogInResponse = useSelector((state: any) => state.Auth.auth.status);
   const status = useSelector((state: any) => state.Auth.status);
 
   const [loading, setLoading] = useState(status);
@@ -41,6 +41,21 @@ const Login: React.FC = () => {
       console.log(`${error}, unable to login`);
     }
   };
+
+  useEffect(() => {
+    if (LogInResponse === 200) {
+      setLoading(false);
+      Navigate(PUBLIC_ROUTES.LANDING_PAGE);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [LogInResponse]);
+
+  useEffect(() => {
+    dispatch(clearState());
+    setLoading(false);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="bg-[#070503] h-screen w-screen md:pt-20 flex flex-col items-center justify-center">

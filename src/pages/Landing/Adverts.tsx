@@ -28,7 +28,7 @@ const Adverts = () => {
     <div className="  w-full h-auto mx-auto mt-24 ">
       <Slider {...settings}>
         {cardData.map((card, index) => (
-          <div className=" w-auto h-[150px] md:h-[200px]">
+          <div className=" w-auto h-[150px] md:h-[200px]" key={index}>
             <img
               src={card.image}
               alt={card.title}

@@ -13,8 +13,10 @@ const App = () => {
     <div className="bg-[#01010b] text-white min-h-screen">
       <Routes>
         <Route path={PUBLIC_ROUTES.LANDING_PAGE} element={<Landing />} />
-        <Route path={`${PUBLIC_ROUTES.EXPLORE_PAGE}`} element={<ExplorePage />} />
+
         {/* you can  use query string url?search= , genre= or type="series" in addition to explore page */}
+        <Route path={`${PUBLIC_ROUTES.EXPLORE_PAGE}`} element={<ExplorePage />} />
+
         <Route path={`${PUBLIC_ROUTES.MOVIE}/:id`} element={<MoviePage />} />
         <Route path={PUBLIC_ROUTES.UPLOAD} element={<Upload />} />
         <Route path={PUBLIC_ROUTES.MY_PROFILE} element={<MyProfile />} />

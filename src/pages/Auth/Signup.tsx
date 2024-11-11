@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import PUBLIC_ROUTES from "../../utils/PublicRoutes";
 import { useDispatch, useSelector } from "react-redux";
-import { UserSignup } from "../../Redux/AuthSlice";
+import { clearState, UserSignup } from "../../Redux/AuthSlice";
 import { AppDispatch } from "../../Redux/store";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../../components/Loading";
@@ -11,7 +11,7 @@ import Nav from "../../components/Navbar";
 function Signup() {
   const dispatch = useDispatch<AppDispatch>();
   const Navigate = useNavigate();
-  const LogInResponse = useSelector((state: any) => state.Auth.user.status);
+  const LogInResponse = useSelector((state: any) => state.Auth.auth?.status);
   const status = useSelector((state: any) => state.Auth.status);
 
   const [loading, setLoading] = useState(status);
@@ -32,15 +32,27 @@ function Signup() {
     dispatch(UserSignup(signupData));
     setLoading(true);
 
-    setTimeout(() => {
-      if (LogInResponse === 200) {
-        setLoading(false);
-        // window.location.assign;
-        Navigate(PUBLIC_ROUTES.LANDING_PAGE);
-      }
-    }, 1000);
+    if (LogInResponse === 200) {
+      setLoading(false);
+      // window.location.assign;
+      Navigate(PUBLIC_ROUTES.LOGIN);
+    }
     // console.log(setSignupData);
   };
+
+  useEffect(() => {
+    if (LogInResponse === 200) {
+      setLoading(false);
+      Navigate(PUBLIC_ROUTES.LOGIN);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [LogInResponse]);
+
+  useEffect(() => {
+    dispatch(clearState());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="bg-[#070503] h-screen w-screen md:pt-20 flex flex-col items-center justify-center">
       <Nav />
