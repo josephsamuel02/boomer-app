@@ -4,12 +4,13 @@ import axios from "axios";
 
 export const GetReviews = createAsyncThunk(
   "get_reviews",
-  async (data: any, { rejectWithValue }) => {
+  async (data: { movie_id: string }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_BOOMER_TEST_API}/reviews`,
-        data
-      );
+      const response = await axios.get(`${import.meta.env.VITE_BOOMER_TEST_API}/reviews`, {
+        params: {
+          movie_id: data.movie_id,
+        },
+      });
       console.log(response.data);
       return response.data;
     } catch (error: any) {
@@ -27,7 +28,7 @@ export const AddReview = createAsyncThunk(
       const token = localStorage.getItem("boomer_token");
 
       const response = await axios.put(
-        `${import.meta.env.VITE_BOOMER_TEST_API}/movies/reviews`,
+        `${import.meta.env.VITE_BOOMER_TEST_API}/reviews`,
         data,
         {
           headers: {
@@ -106,9 +107,9 @@ export const ReviewSlice: any = createSlice({
   name: "review",
   initialState: initialState,
   reducers: {
-    Movie: (state, action) => {
-      state.movies = action.payload;
-    },
+    // Movie: (state, action) => {
+    //   state.movies = action.payload;
+    // },
     // resetState: () => {
     //   return state.draft == "";
     // },

@@ -32,7 +32,8 @@ const NewSeries = () => {
               <div className="flex flex-row h-[270px] w-auto  mr-36 ">
                 {moviesData &&
                   moviesData.map((d: any, i: any) => (
-                    <div
+                    <a
+                      href={`${PUBLIC_ROUTES.MOVIE}/${d.movie_id}`}
                       key={i}
                       className="m-2  w-[300px] h-[250px] bg-black rounded-md shadow shadow-[#ffffff44] transition-transform duration-300 ease-in-out transform hover:scale-105  "
                     >
@@ -62,7 +63,7 @@ const NewSeries = () => {
                           </p>
                         </div>
                       </div>
-                    </div>
+                    </a>
                   ))}
               </div>
             </div>

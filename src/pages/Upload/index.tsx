@@ -24,21 +24,24 @@ const Upload = () => {
 
   const [updateData, setUpdateData] = useState<any>({
     poster_id: MyProfile.user_id,
+    poster_profile_image: MyProfile.profile_img,
+    poster_user_name: MyProfile.user_name,
+
     editors_id: [],
-    movie_title: " ",
+    movie_title: "",
     tags: [],
-    synopsis: " ",
-    movie_genre: " ",
+    synopsis: "",
+    movie_genre: "",
     released: true,
     type: "",
-    // release_date: " ",
+    release_date: "",
     movie_poster_image: [],
     download_links: [],
     movie_trailer: "",
     reviews: {},
     rating: 0,
     industry: "",
-    language: " ",
+    language: "",
   });
 
   const Genre = [

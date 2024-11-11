@@ -234,7 +234,6 @@ export const MovieSlice: any = createSlice({
         state.status = "failed";
         state.error = action.payload;
       })
-
       .addCase(SearchMoviesByTitle.pending, (state) => {
         state.status = "loading";
         state.error = null;

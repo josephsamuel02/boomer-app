@@ -22,7 +22,7 @@ const Banner = ({ movieData }: compData) => {
         backgroundImage: `url(${movieData.movie_poster_image})`,
       }}
     >
-      <div className=" m-1 w-auto h-[430px] md:h-[550px] flex flex-col md:flex-row items-center  ">
+      <div className=" m-1 w-auto h-[430px] md:h-[540px] flex flex-col md:flex-row items-center  ">
         <img
           // src="/images/strange-darling-poster.jpg"
 
@@ -42,7 +42,7 @@ const Banner = ({ movieData }: compData) => {
             <MdStar size={26} color="yellow" />
             {movieData.rating}/10
             <span className="mx-1 md:mx-3 text-xs md:text-sm font-Nunito font-normal italic">
-              300 Reviews
+              {movieData.rating_count} Reviews
             </span>
           </h3>
           <h3 className="mx-3 text-xs md:text-md text-white px-3 py-1 font-Raleway text-center bg-[#7775753d] border border-[#ffffffd8]  rounded-2xl">
@@ -56,12 +56,14 @@ const Banner = ({ movieData }: compData) => {
             href={PUBLIC_ROUTES.MY_PROFILE}
             className=" italic line-clamp-1 w-auto mx-3 text-xs  hover:text-blue-700 text-white flex flex-row items-center  py-1 font-Raleway    rounded-2xl"
           >
-            Uploaded by @Easy_man
-            <img
-              src="/images/spider.jpg"
-              alt=""
-              className="mx-1 w-5 h-5 rounded-full object-cover"
-            />
+            Uploaded by @ {movieData.poster_user_name}
+            {movieData.poster_profile_image && (
+              <img
+                src={movieData.poster_profile_image}
+                alt=""
+                className="ml-1 w-5 h-5 rounded-full object-cover"
+              />
+            )}
           </a>
         </div>
         <div className="m-auto mt-5 w-full md:w-3/4 h-[250px] md:h-[210px] lg:h-[310px]  flex flex-col items-center  ">
