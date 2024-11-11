@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { MdStar } from "react-icons/md";
 import PUBLIC_ROUTES from "../../utils/PublicRoutes";

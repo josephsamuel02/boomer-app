@@ -68,7 +68,7 @@ const DownloadLinks = ({ downloadLinks: downloadLinks }: compData) => {
     },
   ];
 
-  // dont delete yet
+  // don't delete yet
   // const sortedDownloadLinks = Download_Links.sort((a, b) => b.vote - a.vote);
 
   return (
