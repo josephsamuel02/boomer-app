@@ -68,28 +68,8 @@ const DownloadLinks = ({ downloadLinks: downloadLinks }: compData) => {
     },
   ];
 
-  const Download_Links = [
-    {
-      link: "https://downloadwella.com/dayibeu94xln/Strange.Darling.(NKIRI.COM).2023.AMZN.WEBRip.DOWNLOADED.FROM.NKIRI.COM.mkv.html",
-      vote: 6,
-    },
-    {
-      link: "https://downloadwella.com/dayibeu94xl.DOWNLOADED.FROM.NKIRI.COM.mkv.html",
-      vote: 3,
-    },
-    {
-      link: "https://downloadwella.com/dayibeu94xln/Strange.Darling.(NKIRI.COM.mkv.html",
-      vote: 4,
-    },
-    { link: "https://downloadwella.com/dayiWNLOADED.FROM.NKIRI.COM.mkv.html", vote: 0 },
-    { link: "https://downloadwella.com/daRI.COM.mkv.html", vote: 0 },
-    {
-      link: "https://downloadwella.cn/Strange.Darling.(NKIRI.COM).2023.AMZN.WEBRip.DOWNLOADED.FROM.NKIRI.COM.mkv.html",
-      vote: -4,
-    },
-    { link: "https://downloadwella.OM.NKIRI.COM.mkv.html", vote: -2 },
-  ];
-  const sortedDownloadLinks = Download_Links.sort((a, b) => b.vote - a.vote);
+  // dont delete yet
+  // const sortedDownloadLinks = Download_Links.sort((a, b) => b.vote - a.vote);
 
   return (
     <div className="px-4 w-full h-auto py-4 bg-black">
