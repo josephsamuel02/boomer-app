@@ -11,7 +11,7 @@ export const GetReviews = createAsyncThunk(
           movie_id: data.movie_id,
         },
       });
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (error: any) {
       console.error(rejectWithValue);
@@ -36,7 +36,7 @@ export const AddReview = createAsyncThunk(
           },
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (error: any) {
       console.error(rejectWithValue);
@@ -61,7 +61,7 @@ export const UpdateReview = createAsyncThunk(
           },
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (error: any) {
       console.error(rejectWithValue);
@@ -86,7 +86,7 @@ export const DeleteReview = createAsyncThunk(
           },
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (error: any) {
       console.error(rejectWithValue);

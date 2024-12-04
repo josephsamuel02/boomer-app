@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FaFilm, FaStar } from "react-icons/fa";
+import PUBLIC_ROUTES from "../../utils/PublicRoutes";
 
 interface compData {
   moviesData: any;
@@ -112,7 +113,8 @@ const SearchResult = ({ moviesData }: compData) => {
       <div className="  w-full  px-4 flex lg:grid grid-flow-row  lg:grid-cols-5  flex-row flex-wrap items-center  ">
         {moviesData &&
           moviesData.map((d: any, i: any) => (
-            <div
+            <a
+              href={`${PUBLIC_ROUTES.MOVIE}/${d.movie_id}`}
               key={i}
               className="w-11/12 h-[400px] md:w-[200px] md:h-[260px] bg-black shadow shadow-[#ffffff44] rounded mx-auto  my-6  transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
             >
@@ -134,15 +136,15 @@ const SearchResult = ({ moviesData }: compData) => {
                 </h1>
                 <div className="px-1 flex flex-row items-center my-2 ">
                   <p className="  flex flex-row items-center font-Poppins text-sm">
-                    <FaStar className="text-[#F25B38]" />
+                    <FaStar className="text-[#FFFF00]" />
                     <span className="pl-1 text-sm"> {d.rating}</span>
                   </p>
                   <p className=" ml-auto font-Poppins text-xs border border-[#ffffff71] rounded-full px-2">
-                    {/* {d.type} */}
+                    {d.type}
                   </p>
                 </div>
               </div>
-            </div>
+            </a>
           ))}
       </div>
     </div>

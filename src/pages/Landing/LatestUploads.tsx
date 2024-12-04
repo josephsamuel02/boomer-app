@@ -129,7 +129,7 @@ const LatestUploads = () => {
                     </h1>
                     <div className="flex flex-row items-center h-auto mt-2">
                       <div className="flex flex-row items-center">
-                        <FaStar className="text-[#F25B38]" />
+                        <FaStar className="text-[#FFFF00]" />
                         <p className="pl-1 text-sm">{d.rating}</p>
                       </div>
 
@@ -156,7 +156,8 @@ const LatestUploads = () => {
         )}
       </div>
       <a
-        href={`${PUBLIC_ROUTES.EXPLORE_PAGE}?type='movies'`}
+        // href={`${PUBLIC_ROUTES.EXPLORE_PAGE}?type=single`}
+        href={`${PUBLIC_ROUTES.EXPLORE_PAGE}`}
         className="w-[200px] h-auto mt-4 p-3 flex flex-row bg-primary hover:bg-[#ad4831]  rounded-full cursor-pointer"
       >
         <p className="mx-auto text-md   text-white">See All New Uploads</p>

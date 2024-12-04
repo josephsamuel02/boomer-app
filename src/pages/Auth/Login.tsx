@@ -23,15 +23,15 @@ const Login: React.FC = () => {
   const LoginAction = async (e: MouseEvent) => {
     e.preventDefault();
     console.log(loginData);
-
+    setLoading(true);
     try {
       dispatch(LoginUser(loginData));
-      setLoading(true);
+
       setTimeout(() => {
         if (LogInResponse === 200) {
           setLoading(false);
           // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-          window.location.assign;
+          // window.location.assign("/");
           Navigate(PUBLIC_ROUTES.LANDING_PAGE);
         }
       }, 1000);
@@ -53,7 +53,7 @@ const Login: React.FC = () => {
   useEffect(() => {
     dispatch(clearState());
     setLoading(false);
-
+    localStorage.removeItem("boomer_token");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -86,7 +86,7 @@ const Login: React.FC = () => {
           />
           <button
             onClick={(e: any) => LoginAction(e)}
-            className="w-[300px] mt-3 p-3 font-Poppins text-[10px] font-light  text-xs   bg-[#F25b38] backdrop-filter backdrop-blur-md text-white border-none cursor-pointer rounded-lg"
+            className="w-[300px] mt-3 p-3 font-Poppins text-[10px] font-light  text-xs   bg-[#F25b38] hover:bg-[#f5513b] backdrop-filter backdrop-blur-md text-white border-none cursor-pointer rounded-lg"
           >
             Login
           </button>
@@ -126,7 +126,7 @@ const Login: React.FC = () => {
           for free.
         </span>
       </div>
-      {loading == "loading" && <Loading />}
+      {loading == true && <Loading />}
     </div>
   );
 };

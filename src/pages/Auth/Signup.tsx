@@ -34,10 +34,8 @@ function Signup() {
 
     if (LogInResponse === 200) {
       setLoading(false);
-      // window.location.assign;
       Navigate(PUBLIC_ROUTES.LOGIN);
     }
-    // console.log(setSignupData);
   };
 
   useEffect(() => {

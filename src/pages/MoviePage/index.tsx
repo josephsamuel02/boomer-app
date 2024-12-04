@@ -5,11 +5,12 @@ import Nav from "../../components/Navbar";
 import Banner from "./Banner";
 import { useEffect, useState } from "react";
 import { AppDispatch } from "../../Redux/store";
-import { GetMovieById } from "../../Redux/Movie";
 import { useDispatch, useSelector } from "react-redux";
 import DownloadLinks from "./DownloadLinks";
-import { GetReviews } from "../../Redux/Reviews";
+import { GetMovieById, GetMoviesByGenre } from "../../Redux/Movie";
+
 import Reviews from "./Reviews";
+import { GetReviews } from "../../Redux/Reviews";
 
 const MoviePage = () => {
   const { id } = useParams();
@@ -17,28 +18,32 @@ const MoviePage = () => {
   const MyProfile = useSelector((state: any) => state.Auth.myProfile.data);
 
   const Movie = useSelector((state: any) => state.Movies.movie?.data);
-  const ReviewsState = useSelector((state: any) => state.Review.reviews.data.reviews);
+  const MovieByGenre = useSelector((state: any) => state.Movies.movie_by_genre?.data);
+  const ReviewsState = useSelector((state: any) => state.Review?.reviews?.data?.reviews);
 
   const [movieData, setMovieData] = useState(Movie);
   const [reviewsData, setReviewsData] = useState(ReviewsState);
+  const [genreMovies, setGenreMovies] = useState(MovieByGenre);
 
   useEffect(() => {
     dispatch(GetMovieById({ movie_id: `${id}` }));
     dispatch(GetReviews({ movie_id: `${id}` }));
-  }, []);
+    dispatch(GetMoviesByGenre({ movie_genre: movieData.movie_genre }));
+  }, [id]);
 
   useEffect(() => {
     setMovieData(Movie);
     setReviewsData(ReviewsState);
-    console.log(ReviewsState);
-  }, [Movie, ReviewsState]);
+    setGenreMovies(MovieByGenre);
+    // console.log(movieData.downloadLinks);
+  }, [Movie, ReviewsState, MovieByGenre]);
 
   return (
     <div className="w-full h-auto bg-black pt-[62px] md:pt-[74px]">
       <Nav />
       <Banner movieData={movieData} />
-      <DownloadLinks downloadLinks={movieData.download_links} />
-      {reviewsData && <Reviews reviewsData={reviewsData} MyProfile={MyProfile} />}
+      <DownloadLinks MovieByGenre={genreMovies} id={`${id}`} user_id={MyProfile.user_id} />
+      <Reviews reviewsData={reviewsData} MyProfile={MyProfile} />
     </div>
   );
 };

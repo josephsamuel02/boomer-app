@@ -45,17 +45,18 @@ export const LoginUser = createAsyncThunk(
 export const GetMyProfile = createAsyncThunk("my_profile", async (_, { rejectWithValue }) => {
   try {
     const token = localStorage.getItem("boomer_token");
+    if (token) {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BOOMER_TEST_API}/users/my_profile`,
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      );
 
-    const response = await axios.get(
-      `${import.meta.env.VITE_BOOMER_TEST_API}/users/my_profile`,
-      {
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-      }
-    );
-
-    return response.data;
+      return response.data;
+    }
   } catch (error: any) {
     console.log(error);
     return rejectWithValue(error.response ? error.response.data : error.message);

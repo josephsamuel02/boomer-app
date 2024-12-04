@@ -7,8 +7,39 @@ import ExplorePage from "./pages/ExplorePage.tsx";
 import MoviePage from "./pages/MoviePage/index.tsx";
 import Upload from "./pages/Upload/index.tsx";
 import MyProfile from "./pages/Profile/MyProfile.tsx";
+import { jwtDecode } from "jwt-decode";
+import { useDispatch } from "react-redux";
+import { clearState } from "./Redux/AuthSlice.ts";
 
+const checkTokenExpiry = () => {
+  const token = localStorage.getItem("boomer_token");
+  if (token) {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const decoded: any = jwtDecode(token);
+
+      const expiryTime = decoded.exp * 1000;
+      const currentTime = Date.now();
+
+      if (currentTime > expiryTime) {
+        // Token is expired
+        return true;
+      }
+    } catch (error) {
+      console.error("Error decoding token:", error);
+    }
+  }
+
+  return false; // Token is valid or not present
+};
 const App = () => {
+  const dispatch = useDispatch();
+
+  if (checkTokenExpiry()) {
+    dispatch(clearState());
+    localStorage.removeItem("boomer_token");
+  }
+
   return (
     <div className="bg-[#01010b] text-white min-h-screen">
       <Routes>

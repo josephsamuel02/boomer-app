@@ -7,9 +7,10 @@ import { Tooltip } from "react-tooltip";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../Redux/store";
 import { GetMyProfile } from "../Redux/AuthSlice";
+
 // GetMyProfile
 const Nav = () => {
-  const MyProfile = useSelector((state: any) => state.Auth.myProfile.data);
+  const MyProfile = useSelector((state: any) => state.Auth.myProfile?.data);
 
   const dispatch = useDispatch<AppDispatch>();
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +28,7 @@ const Nav = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  const [user, setUser] = useState(MyProfile);
+  const [user, setUser] = useState<any>([]);
 
   const Genre = {
     title: "Genre",
@@ -55,9 +56,31 @@ const Nav = () => {
     ],
   };
 
+  // const verifyJWT = () => {
+  //   try {
+  //     const token = localStorage.getItem("boomer_token");
+  //     if (token) {
+  //       const isExpired = checkJwtExpiry(token!);
+
+  //       if (isExpired) {
+  //         dispatch(clearState());
+  //         localStorage.removeItem("boomer_token");
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   useEffect(() => {
-    dispatch(GetMyProfile());
-    setUser(MyProfile);
+    // verifyJWT();
+
+    const token = localStorage.getItem("boomer_token");
+    if (token) {
+      dispatch(GetMyProfile());
+      setUser(MyProfile);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -113,7 +136,7 @@ const Nav = () => {
             )}
           </div>
         </div>
-        {user?.user_id && (
+        {user && user?.user_id && (
           <a
             href={PUBLIC_ROUTES.UPLOAD}
             className="flex flex-row items-center mr-1 md:mr-3 px-2 md:px-4 py-2 text-black  hover:text-white bg-[#ffff] hover:bg-[#442727] rounded-full cursor-pointer "
@@ -127,9 +150,9 @@ const Nav = () => {
           <a
             href={PUBLIC_ROUTES.MY_PROFILE}
             data-tooltip-id="my-tooltip"
-            data-tooltip-content="User profile"
+            data-tooltip-content="Profile"
             data-tooltip-place="top"
-            className="w-20 md:w-[140px] ml-2 hover:border border-primary text-white flex flex-row items-center  rounded-full cursor-pointer"
+            className="w-20 md:w-[140px] ml-2 hover:border border-primary hover:border-l-0 text-white flex flex-row items-center  rounded-full cursor-pointer"
           >
             <Tooltip id="my-tooltip" />
             {user?.profile_img && (

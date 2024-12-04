@@ -3,7 +3,7 @@ import { MdEdit } from "react-icons/md";
 import Nav from "../../components/Navbar";
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { GetMyProfile, UpdateMyProfile } from "../../Redux/AuthSlice";
+import { clearState, GetMyProfile, UpdateMyProfile } from "../../Redux/AuthSlice";
 import { AppDispatch } from "../../Redux/store";
 import axios from "axios";
 import { Loading } from "../../components/Loading";
@@ -82,6 +82,11 @@ const MyProfile = () => {
   // }, [editName]);
 
   useEffect(() => {
+    const access = localStorage.getItem("boomer_token");
+    if (!access) {
+      window.location.replace("/");
+    }
+
     if (!user?.user_id) {
       dispatch(GetMyProfile());
     }
@@ -162,7 +167,21 @@ const MyProfile = () => {
             className=" mx-auto bottom-2 w-[85%] md:w-[300px] h-auto text-white font-Poppins py-2 rounded-full bg-primary hover:bg-[#e96345] cursor-pointer"
           />
         )}
+
+        <div className="  py-6  mt-6 mx-auto w-3/4 h-auto flex flex-col items-center   shadow-xs shadow-slate-200 rounded-lg ">
+          <button
+            className="mx-6 px-10 py-3 text-black bg-white hover:bg-slate-200 rounded-full"
+            onClick={() => {
+              dispatch(clearState());
+              localStorage.removeItem("boomer_token");
+              window.location.replace("/");
+            }}
+          >
+            Logout
+          </button>
+        </div>
       </div>
+
       {loading == true && <Loading />}
     </div>
   );

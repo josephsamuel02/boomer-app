@@ -17,7 +17,7 @@ export const UploadMovie = createAsyncThunk(
           },
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (error: any) {
       console.error(rejectWithValue);
@@ -36,7 +36,7 @@ export const GetMovies = createAsyncThunk("get_movies", async (_, { rejectWithVa
         Authorization: `Bearer ${token}`, // Include the Bearer token for authorization
       },
     });
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   } catch (error: any) {
     console.error(rejectWithValue);
@@ -57,7 +57,7 @@ export const GetMovieById = createAsyncThunk(
           },
         }
       );
-      console.log(response.data);
+
       return response.data;
     } catch (error: any) {
       console.error(rejectWithValue);
@@ -75,7 +75,7 @@ export const GetMoviesByGenre = createAsyncThunk(
         `${import.meta.env.VITE_BOOMER_TEST_API}/movies/genre`,
         data
       );
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (error: any) {
       console.error(rejectWithValue);
@@ -87,15 +87,14 @@ export const GetMoviesByGenre = createAsyncThunk(
 
 export const GetMoviesByType = createAsyncThunk(
   "get_movies_by_type",
-  async (data: { type: string }, { rejectWithValue }) => {
+  async (data: any, { rejectWithValue }) => {
     try {
-      console.log(data);
       const response = await axios.get(`${import.meta.env.VITE_BOOMER_TEST_API}/movies/type`, {
         params: {
           type: data.type,
         },
       });
-      console.log(response.data);
+
       return response.data;
     } catch (error: any) {
       console.error(rejectWithValue);
@@ -117,7 +116,7 @@ export const SearchMoviesByTitle = createAsyncThunk(
           },
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (error: any) {
       console.error(error);
@@ -133,7 +132,7 @@ export const GetTrendingMovies = createAsyncThunk(
       const response = await axios.get(
         `${import.meta.env.VITE_BOOMER_TEST_API}/movies/trending`
       );
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (error: any) {
       console.error(rejectWithValue);
@@ -158,7 +157,57 @@ export const UpdateMovie = createAsyncThunk(
           },
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
+      return response.data;
+    } catch (error: any) {
+      console.error(rejectWithValue);
+      console.log(error);
+      return error.response.data;
+    }
+  }
+);
+
+export const AddDownloadLink = createAsyncThunk(
+  "add_download_link",
+  async (data: any, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("boomer_token");
+
+      const response = await axios.put(
+        `${import.meta.env.VITE_BOOMER_TEST_API}/movies/add_download_link`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // console.log(response.data);
+      return response.data;
+    } catch (error: any) {
+      console.error(rejectWithValue);
+      console.log(error);
+      return error.response.data;
+    }
+  }
+);
+
+export const RateDownloadLink = createAsyncThunk(
+  "rate_download_link",
+  async (data: any, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("boomer_token");
+
+      const response = await axios.put(
+        `${import.meta.env.VITE_BOOMER_TEST_API}/movies/rate_download_link`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // console.log(response.data);
       return response.data;
     } catch (error: any) {
       console.error(rejectWithValue);
@@ -186,16 +235,14 @@ export const MovieSlice: any = createSlice({
   initialState: initialState,
 
   reducers: {
-    Movie: (state, action) => {
-      state.movies = action.payload;
-    },
+    // Movie: (state, action) => {
+    //   state.movies = action.payload;
+    // },
 
     clearMovieUploadState: (state) => {
-      // This will reset all properties to their initial values
       state.data = {};
     },
   },
-
   extraReducers: (builder) => {
     builder
       .addCase(UploadMovie.pending, (state) => {
@@ -276,7 +323,7 @@ export const MovieSlice: any = createSlice({
       })
       .addCase(GetMoviesByGenre.fulfilled, (state, action: any) => {
         state.status = "succeeded";
-        state.movies = action.payload;
+        state.movie_by_genre = action.payload;
       })
       .addCase(GetMoviesByGenre.rejected, (state, action: any) => {
         state.status = "failed";
@@ -288,9 +335,33 @@ export const MovieSlice: any = createSlice({
       })
       .addCase(UpdateMovie.fulfilled, (state, action: any) => {
         state.status = "succeeded";
-        state.data = action.payload;
+        state.movie = action.payload;
       })
       .addCase(UpdateMovie.rejected, (state, action: any) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(AddDownloadLink.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(AddDownloadLink.fulfilled, (state, action: any) => {
+        state.status = "succeeded";
+        state.data = action.payload;
+      })
+      .addCase(AddDownloadLink.rejected, (state, action: any) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(RateDownloadLink.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(RateDownloadLink.fulfilled, (state, action: any) => {
+        state.status = "succeeded";
+        state.data = action.payload;
+      })
+      .addCase(RateDownloadLink.rejected, (state, action: any) => {
         state.status = "failed";
         state.error = action.payload;
       });

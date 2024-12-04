@@ -55,7 +55,7 @@ const NewSeries = () => {
                         </h1>
                         <div className="px-1 flex flex-row items-center my-2 ">
                           <p className="  flex flex-row items-center font-Poppins text-sm">
-                            <FaStar className="text-[#F25B38]" />
+                            <FaStar className="text-[#FFFF00]" />
                             <span className="pl-1 text-sm"> {d.rating}</span>
                           </p>
                           <p className=" ml-auto font-Poppins text-xs border border-[#ffffff71] rounded-full px-2">
@@ -70,10 +70,10 @@ const NewSeries = () => {
           </div>
         </div>
         <a
-          href={`${PUBLIC_ROUTES.EXPLORE_PAGE}?type="series"`}
+          href={`${PUBLIC_ROUTES.EXPLORE_PAGE}?type=series`}
           className="w-[200px] h-auto mt-4 p-3 flex flex-row bg-primary hover:bg-[#ad4831]  rounded-full cursor-pointer"
         >
-          <p className="mx-auto text-md   text-white">See All New Series</p>
+          <p className="mx-auto text-md text-white">See All New Series</p>
         </a>
       </div>
     </div>

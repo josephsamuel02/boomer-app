@@ -114,7 +114,7 @@ const Recommends = () => {
                   </h1>
                   <div className="px-1 flex flex-row items-center my-2 ">
                     <p className="  flex flex-row items-center font-Poppins text-sm">
-                      <FaStar className="text-[#F25B38]" />
+                      <FaStar className="text-[#FFFF00]" />
                       <span className="pl-1 text-sm"> {d.rating}</span>
                     </p>
                     <p className=" ml-auto font-Poppins text-xs border border-[#ffffff71] rounded-full px-2">

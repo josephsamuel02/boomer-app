@@ -23,10 +23,10 @@ const Upload = () => {
   const [showSubmitBTN, setShowSubmitBTN] = useState(false);
 
   const [updateData, setUpdateData] = useState<any>({
+    user_id: MyProfile.user_id,
     poster_id: MyProfile.user_id,
     poster_profile_image: MyProfile.profile_img,
     poster_user_name: MyProfile.user_name,
-
     editors_id: [],
     movie_title: "",
     tags: [],
@@ -36,7 +36,7 @@ const Upload = () => {
     type: "",
     release_date: "",
     movie_poster_image: [],
-    download_links: [],
+    download_link: "",
     movie_trailer: "",
     reviews: {},
     rating: 0,
@@ -124,7 +124,8 @@ const Upload = () => {
     setLoading(false);
 
     if (UploadResponse === 200) {
-      window.location.reload();
+      // window.location.reload();
+      Navigate(0);
     }
   };
 
@@ -136,12 +137,7 @@ const Upload = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    if (UploadResponse === 200) {
-      setLoading(false);
-      Navigate(0);
-      dispatch(clearMovieUploadState());
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch(clearMovieUploadState());
   }, [UploadResponse]);
   return (
     <div className="w-full h-full bg-black pt-18 md:pt-20 flex flex-col items-center">
@@ -274,7 +270,7 @@ const Upload = () => {
             onChange={(e) =>
               setUpdateData((prev: any) => ({
                 ...prev,
-                download_links: [e.target.value], // Assuming it's a single link
+                download_link: e.target.value, // Assuming it's a single link
               }))
             }
           />
