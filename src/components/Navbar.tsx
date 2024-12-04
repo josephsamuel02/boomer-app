@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SlArrowDown } from "react-icons/sl";
+import { SlMenu } from "react-icons/sl"; // Importing menu icon
 import { useState, useRef, useEffect } from "react";
 import { BsUpload } from "react-icons/bs";
 import PUBLIC_ROUTES from "../utils/PublicRoutes";
@@ -8,13 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../Redux/store";
 import { GetMyProfile } from "../Redux/AuthSlice";
 
-// GetMyProfile
 const Nav = () => {
   const MyProfile = useSelector((state: any) => state.Auth.myProfile?.data);
 
   const dispatch = useDispatch<AppDispatch>();
-  const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef<any>(null);
+
+  const [isOpen, setIsOpen] = useState(false); // For the Genre dropdown
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // For the mobile menu
 
   const handleClickOutside = (event: any) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -28,6 +30,7 @@ const Nav = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
   const [user, setUser] = useState<any>([]);
 
   const Genre = {
@@ -56,33 +59,13 @@ const Nav = () => {
     ],
   };
 
-  // const verifyJWT = () => {
-  //   try {
-  //     const token = localStorage.getItem("boomer_token");
-  //     if (token) {
-  //       const isExpired = checkJwtExpiry(token!);
-
-  //       if (isExpired) {
-  //         dispatch(clearState());
-  //         localStorage.removeItem("boomer_token");
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   useEffect(() => {
-    // verifyJWT();
-
     const token = localStorage.getItem("boomer_token");
     if (token) {
       dispatch(GetMyProfile());
       setUser(MyProfile);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch, MyProfile]);
 
   useEffect(() => {
     setUser(MyProfile);
@@ -96,6 +79,7 @@ const Nav = () => {
           <img src="" alt="" />
         </a>
 
+        {/* Desktop Menu */}
         <div className="ml-auto mr-20 hidden md:flex flex-row justify-center items-center">
           <a
             href="/"
@@ -136,6 +120,50 @@ const Nav = () => {
             )}
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="absolute top-16 right-0 w-60 bg-black rounded-lg py-4 border border-[#ffffff44] z-50">
+            <a
+              href="/"
+              className="block text-[14px] px-3 py-2 font-Poppins hover:bg-[#181818] text-white hover:text-primary"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Home
+            </a>
+            <a
+              href={PUBLIC_ROUTES.EXPLORE_PAGE}
+              className="block text-[14px] px-3 py-2 font-Poppins hover:bg-[#181818] text-white hover:text-primary"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Explore
+            </a>
+            <div
+              className="block text-[14px] px-3 py-2 font-Poppins hover:bg-[#181818] text-white hover:text-primary cursor-pointer"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              Genre
+              {isOpen && (
+                <div
+                  className="mt-2 py-2 w-full h-[200px] overflow-y-scroll flex flex-col bg-black rounded border border-[#ffffff6b]"
+                  ref={modalRef}
+                >
+                  {Genre.options.map((d, i) => (
+                    <a
+                      href={`${PUBLIC_ROUTES.EXPLORE_PAGE}?genre=${d.genre}`}
+                      className="text-md font-Poppins mx-1 p-1 text-white hover:border border-[#ffffff6b] rounded-sm"
+                      key={i}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {d.title}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         {user && user?.user_id && (
           <a
             href={PUBLIC_ROUTES.UPLOAD}
@@ -190,6 +218,14 @@ const Nav = () => {
             </p>
           </a>
         )}
+        {/* Mobile Menu Icon */}
+        <div className="ml-2 md:hidden cursor-pointer">
+          <SlMenu
+            size={20}
+            className="text-white"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          />
+        </div>
       </div>
     </>
   );
