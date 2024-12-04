@@ -15,7 +15,6 @@ const Banner = ({ movieData }: compData) => {
     const youtubeUrlRegex = /(?:youtube\.com\/.*v=|youtu\.be\/)([\w\-]{11})/;
     const match = url.match(youtubeUrlRegex);
     setYoutubeVid(match ? match[1] : " ");
-    // return match ? match[1] : null;
   };
 
   useEffect(() => extractVideoId(`${movieData?.movie_trailer}`), []);
@@ -23,7 +22,7 @@ const Banner = ({ movieData }: compData) => {
   return (
     <>
       <div
-        className=" px-2 md:px-6 w-full h-auto md:h-[560px]   bg-no-repeat bg-cover bg-white flex flex-col md:flex-row items-center"
+        className=" px-2 md:px-6 w-full h-auto md:h-[560px] bg-no-repeat bg-cover bg-white flex flex-col md:flex-row items-center"
         style={{
           backgroundImage: `url(${
             movieData?.movie_poster_image ? movieData?.movie_poster_image : ""
