@@ -97,7 +97,7 @@ const DownloadLinks = ({ MovieByGenre, id, user_id }: compData) => {
 
                 <div className="flex flex-col mt-2 ml-2">
                   <h1 className=" line-clamp-1  h-[16px]   text-[9px] font-Raleway font-medium text-white ">
-                    {d.title} Lorem ipsum dolor sit amet efaef
+                    {d.title}
                   </h1>
                   <div className="px-1 flex flex-row items-center my-2 ">
                     <p className="  flex flex-row items-center  ">

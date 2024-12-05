@@ -17,7 +17,7 @@ const Banner = ({ movieData }: compData) => {
     setYoutubeVid(match ? match[1] : " ");
   };
 
-  useEffect(() => extractVideoId(`${movieData?.movie_trailer}`), []);
+  useEffect(() => extractVideoId(`${movieData?.movie_trailer}`), [movieData]);
 
   return (
     <>
