@@ -50,18 +50,16 @@ const MyProfile = () => {
       try {
         const response = await axios.post(import.meta.env.VITE_CLOUDINARY_BASE_URL, formData);
         const imageUrl = response.data.secure_url;
-        console.log("Uploaded Image URL:", imageUrl);
+
         return imageUrl;
       } catch (err) {
-        console.error("Error uploading image:", err);
-        return null;
+        return { message: "Error uploading image:", error: err } as any;
       }
     }
     return null;
   };
 
   const updateProfile = async () => {
-    console.log(updateData);
     setLoading(true);
 
     const uploadedImageUrl = await uploadImage();

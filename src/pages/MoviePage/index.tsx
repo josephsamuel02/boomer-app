@@ -35,7 +35,6 @@ const MoviePage = () => {
     setMovieData(Movie);
     setReviewsData(ReviewsState);
     setGenreMovies(MovieByGenre);
-    // console.log(movieData.downloadLinks);
   }, [Movie, ReviewsState, MovieByGenre]);
 
   return (

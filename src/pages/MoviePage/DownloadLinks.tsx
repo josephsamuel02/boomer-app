@@ -59,7 +59,7 @@ const DownloadLinks = ({ MovieByGenre, id, user_id }: compData) => {
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
   const sortDownloadLinks = () => {

@@ -22,7 +22,7 @@ const Login: React.FC = () => {
 
   const LoginAction = async (e: MouseEvent) => {
     e.preventDefault();
-    console.log(loginData);
+
     setLoading(true);
     try {
       dispatch(LoginUser(loginData));
@@ -35,10 +35,8 @@ const Login: React.FC = () => {
           Navigate(PUBLIC_ROUTES.LANDING_PAGE);
         }
       }, 1000);
-
-      console.log(loginData);
     } catch (error) {
-      console.log(`${error}, unable to login`);
+      return { error: `${error}, message:unable to login` };
     }
   };
 

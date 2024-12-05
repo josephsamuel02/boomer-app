@@ -26,7 +26,7 @@ const checkTokenExpiry = () => {
         return true;
       }
     } catch (error) {
-      console.error("Error decoding token:", error);
+      return { message: "Error decoding token:", error: error };
     }
   }
 

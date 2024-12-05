@@ -10,12 +10,10 @@ export const UserSignup = createAsyncThunk(
         `${import.meta.env.VITE_BOOMER_TEST_API}/auth/signup`,
         data
       );
-      // console.log(response.data);
+
       return response.data;
     } catch (error: any) {
-      console.error(rejectWithValue);
-      console.log(error);
-      return error.response.data;
+      return rejectWithValue(error.response ? error.response.data : error.message);
     }
   }
 );
@@ -33,10 +31,8 @@ export const LoginUser = createAsyncThunk(
         localStorage.setItem("boomer_token", response.data.token);
       }
 
-      console.log(response.data);
       return response.data;
     } catch (error: any) {
-      console.log(error);
       return rejectWithValue(error.response ? error.response.data : error.message);
     }
   }
@@ -58,7 +54,6 @@ export const GetMyProfile = createAsyncThunk("my_profile", async (_, { rejectWit
       return response.data;
     }
   } catch (error: any) {
-    console.log(error);
     return rejectWithValue(error.response ? error.response.data : error.message);
   }
 });
@@ -79,10 +74,8 @@ export const UpdateMyProfile = createAsyncThunk(
         }
       );
 
-      console.log(response.data);
       return response.data;
     } catch (error: any) {
-      console.log(error);
       return rejectWithValue(error.response ? error.response.data : error.message);
     }
   }

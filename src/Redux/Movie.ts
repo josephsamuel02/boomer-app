@@ -17,12 +17,10 @@ export const UploadMovie = createAsyncThunk(
           },
         }
       );
-      // console.log(response.data);
+
       return response.data;
     } catch (error: any) {
-      console.error(rejectWithValue);
-      console.log(error);
-      return error.response.data;
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -36,12 +34,10 @@ export const GetMovies = createAsyncThunk("get_movies", async (_, { rejectWithVa
         Authorization: `Bearer ${token}`, // Include the Bearer token for authorization
       },
     });
-    // console.log(response.data);
+
     return response.data;
   } catch (error: any) {
-    console.error(rejectWithValue);
-    console.log(error);
-    return error.response.data;
+    return rejectWithValue(error.response.data);
   }
 });
 
@@ -60,9 +56,7 @@ export const GetMovieById = createAsyncThunk(
 
       return response.data;
     } catch (error: any) {
-      console.error(rejectWithValue);
-      console.log(error);
-      return error.response.data;
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -75,12 +69,10 @@ export const GetMoviesByGenre = createAsyncThunk(
         `${import.meta.env.VITE_BOOMER_TEST_API}/movies/genre`,
         data
       );
-      // console.log(response.data);
+
       return response.data;
     } catch (error: any) {
-      console.error(rejectWithValue);
-      console.log(error);
-      return error.response.data;
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -97,9 +89,7 @@ export const GetMoviesByType = createAsyncThunk(
 
       return response.data;
     } catch (error: any) {
-      console.error(rejectWithValue);
-      console.log(error);
-      return error.response.data;
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -116,10 +106,9 @@ export const SearchMoviesByTitle = createAsyncThunk(
           },
         }
       );
-      // console.log(response.data);
+
       return response.data;
     } catch (error: any) {
-      console.error(error);
       return rejectWithValue(error.response.data);
     }
   }
@@ -132,12 +121,10 @@ export const GetTrendingMovies = createAsyncThunk(
       const response = await axios.get(
         `${import.meta.env.VITE_BOOMER_TEST_API}/movies/trending`
       );
-      // console.log(response.data);
+
       return response.data;
     } catch (error: any) {
-      console.error(rejectWithValue);
-      console.log(error);
-      return error.response.data;
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -157,12 +144,10 @@ export const UpdateMovie = createAsyncThunk(
           },
         }
       );
-      // console.log(response.data);
+
       return response.data;
     } catch (error: any) {
-      console.error(rejectWithValue);
-      console.log(error);
-      return error.response.data;
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -182,12 +167,10 @@ export const AddDownloadLink = createAsyncThunk(
           },
         }
       );
-      // console.log(response.data);
+
       return response.data;
     } catch (error: any) {
-      console.error(rejectWithValue);
-      console.log(error);
-      return error.response.data;
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -207,12 +190,10 @@ export const RateDownloadLink = createAsyncThunk(
           },
         }
       );
-      // console.log(response.data);
+
       return response.data;
     } catch (error: any) {
-      console.error(rejectWithValue);
-      console.log(error);
-      return error.response.data;
+      return rejectWithValue(error.response.data);
     }
   }
 );

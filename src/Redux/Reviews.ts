@@ -11,12 +11,10 @@ export const GetReviews = createAsyncThunk(
           movie_id: data.movie_id,
         },
       });
-      // console.log(response.data);
+
       return response.data;
     } catch (error: any) {
-      console.error(rejectWithValue);
-      console.log(error);
-      return error.response.data;
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -36,12 +34,9 @@ export const AddReview = createAsyncThunk(
           },
         }
       );
-      // console.log(response.data);
       return response.data;
     } catch (error: any) {
-      console.error(rejectWithValue);
-      console.log(error);
-      return error.response.data;
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -61,12 +56,10 @@ export const UpdateReview = createAsyncThunk(
           },
         }
       );
-      // console.log(response.data);
+
       return response.data;
     } catch (error: any) {
-      console.error(rejectWithValue);
-      console.log(error);
-      return error.response.data;
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -86,12 +79,10 @@ export const DeleteReview = createAsyncThunk(
           },
         }
       );
-      // console.log(response.data);
+
       return response.data;
     } catch (error: any) {
-      console.error(rejectWithValue);
-      console.log(error);
-      return error.response.data;
+      return rejectWithValue(error.response.data);
     }
   }
 );

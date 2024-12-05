@@ -40,7 +40,6 @@ const LatestUploads = () => {
   const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
   const [searchText, setSearchText] = useState("");
   const handleKeyDown = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-    console.log(searchText);
     if (event.key === "Enter") {
       // Trigger the dispatch when Enter is pressed
       // dispatch(SearchMoviesByTitle({ movie_title: searchText }));

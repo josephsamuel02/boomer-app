@@ -33,8 +33,6 @@ const Reviews = ({ reviewsData, MyProfile }: compData) => {
 
   const addReview = async () => {
     setLoading(true);
-    console.log(newReview);
-
     await dispatch(AddReview(newReview));
 
     setReviewCard(false);
