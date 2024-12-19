@@ -23,10 +23,10 @@ const Reviews = ({ reviewsData, MyProfile }: compData) => {
   const [myReviewExists, setMyReviewExists] = useState(false);
 
   const [newReview, setNewReview] = useState({
-    movie_id: Movie.movie_id,
-    user_id: MyProfile.user_id,
-    profile_image: MyProfile.profile_img,
-    user_name: MyProfile.user_name,
+    movie_id: Movie?.movie_id,
+    user_id: MyProfile?.user_id,
+    profile_image: MyProfile?.profile_img,
+    user_name: MyProfile?.user_name,
     rating: "",
     comment: "",
   });
@@ -41,7 +41,7 @@ const Reviews = ({ reviewsData, MyProfile }: compData) => {
 
   useEffect(() => {
     if (MyProfile && reviewsData) {
-      const exists = reviewsData.some((review) => review.user_id === MyProfile.user_id);
+      const exists = reviewsData.some((review) => review.user_id === MyProfile?.user_id);
       setMyReviewExists(exists);
     }
   }, [reviewsData, MyProfile]);
@@ -52,8 +52,8 @@ const Reviews = ({ reviewsData, MyProfile }: compData) => {
           <div className="w-auto h-auto bg-white rounded-full">
             <img
               src={
-                MyProfile.profile_img
-                  ? MyProfile.profile_img
+                MyProfile?.profile_img
+                  ? MyProfile?.profile_img
                   : "/images/person-svgrepo-com.svg"
               }
               alt="profile image"
@@ -121,7 +121,7 @@ const Reviews = ({ reviewsData, MyProfile }: compData) => {
                     <p className="text-xs font-Nunito pb-2 mr-auto text-[#d0d0d1d2]">
                       {formatDistanceToNow(new Date(d.createdAt), { addSuffix: true })}
                     </p>
-                    {MyProfile.user_id == d.user_id && (
+                    {MyProfile?.user_id == d.user_id && (
                       <p className=" text-center text-xs font-Nunito py-[4px] mb-0.5 px-2 text-[#ffff] hover:bg-[#ffffff28] border border-[#f25a3848] rounded cursor-pointer">
                         Edit
                       </p>

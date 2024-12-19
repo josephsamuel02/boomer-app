@@ -41,7 +41,7 @@ const MoviePage = () => {
     <div className="w-full h-auto bg-black pt-[62px] md:pt-[74px]">
       <Nav />
       <Banner movieData={movieData} />
-      <DownloadLinks MovieByGenre={genreMovies} id={`${id}`} user_id={MyProfile.user_id} />
+      <DownloadLinks MovieByGenre={genreMovies} id={`${id}`} user_id={MyProfile?.user_id} />
       <Reviews reviewsData={reviewsData} MyProfile={MyProfile} />
     </div>
   );

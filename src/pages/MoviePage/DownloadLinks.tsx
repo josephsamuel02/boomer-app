@@ -22,7 +22,7 @@ const DownloadLinks = ({ MovieByGenre, id, user_id }: compData) => {
 
   const [loading, setLoading] = useState(false);
   const [downloadLinkCard, setDownloadLinkCard] = useState(false);
-  const [dLinks, setDLinks] = useState(Movie.downloadLinks);
+  const [dLinks, setDLinks] = useState(Movie?.downloadLinks);
 
   const [addDownloadLink, setAddDownloadLink] = useState({
     url: "",
