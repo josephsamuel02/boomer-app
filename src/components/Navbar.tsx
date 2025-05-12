@@ -65,11 +65,11 @@ const Nav = () => {
       dispatch(GetMyProfile());
       setUser(MyProfile);
     }
-  }, [dispatch, MyProfile]);
+  }, []);
 
   useEffect(() => {
     setUser(MyProfile);
-  }, [MyProfile]);
+  }, []);
 
   return (
     <>

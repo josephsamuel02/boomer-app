@@ -4,12 +4,10 @@ import { SlArrowDown } from "react-icons/sl";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../Redux/store";
 import { GetMovies, GetMoviesByGenre, SearchMoviesByTitle } from "../../Redux/Movie";
-// import { useDispatch } from "react-redux";
-// import { AppDispatch } from "../../Redux/store";
-// import { ArtSearch } from "../../Redux/FetchArtwork";
 
 const SearchBar = () => {
   const dispatch = useDispatch<AppDispatch>();
+
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef<any>(null);
 
@@ -60,6 +58,7 @@ const SearchBar = () => {
       { title: "Western", url: "western" },
     ],
   };
+
   return (
     <div className="fixed top-[60px] md:top-[72px] w-full h-auto bg-[#0a0606e5] z-20 ">
       <div className="  w-full py-2 md:py-6 h-auto flex flex-row md:px-2 md:items-center border-b border-[#ffffff6c] ">
@@ -73,7 +72,7 @@ const SearchBar = () => {
             <img
               src="/images/searchicon1.svg"
               alt="search"
-              className=" w-3 md:w-5 h-3 md:h-5"
+              className=" w-3 md:w-5 h-3 md:h-5 font-Nunito"
             />
             Search
           </button>

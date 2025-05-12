@@ -12,6 +12,8 @@ const LatestUploads = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const Movies = useSelector((state: any) => state.Movies.movies.data);
+  const MoviesByGenre = useSelector((state: any) => state.Movies.movie_by_genre?.data);
+
   const Genre = [
     { title: "Action", url: "action" },
     { title: "Sci-Fi ", url: "sci-fi" },
@@ -35,7 +37,7 @@ const LatestUploads = () => {
     { title: "Western", url: "western" },
   ];
 
-  const [moviesData, setMoviesData] = useState(Movies);
+  const [moviesData, setMoviesData] = useState(MoviesByGenre);
 
   const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
   const [searchText, setSearchText] = useState("");
@@ -49,15 +51,22 @@ const LatestUploads = () => {
   };
 
   // Display only the first 4 movies
-
   // Get unique genres and limit to the first 5
 
   useEffect(() => {
     dispatch(GetMovies());
+    // dispatch(GetMoviesByGenre({ movie_genre: [] }));
   }, []);
+
   useEffect(() => {
-    setMoviesData(Movies);
-  }, [Movies]);
+    if (MoviesByGenre.length === 0) {
+      setMoviesData(Movies);
+      return;
+    }
+    setMoviesData(MoviesByGenre);
+    console.log("MoviesByGenre", MoviesByGenre);
+  }, [MoviesByGenre]);
+
   return (
     <div className="w-full h-auto mt-16 px-4 md:px-6 flex flex-col">
       {/* Search Bar with Button */}
@@ -83,12 +92,13 @@ const LatestUploads = () => {
           <div className="flex flex-row w-auto mr-5 ">
             {/* Clear Filter Button */}
             <button
-              className={`mr-1 border border-whitesmoke rounded-md w-[50px] h-[40px] hover:bg-[#F25B38] ${
+              className={`mr-1 border border-whitesmoke rounded-md w-[40px] h-[30px] hover:bg-[#F25B38] text-xs ${
                 selectedGenre == null ? "bg-primary" : "bg-black"
               }`}
               onClick={() => {
                 setSelectedGenre(null);
                 dispatch(GetMovies());
+                setMoviesData(Movies);
               }}
             >
               All
@@ -96,8 +106,10 @@ const LatestUploads = () => {
             {Genre.slice(0, 5).map((genre, index) => (
               <button
                 key={index}
-                className={`mx-0.5 shadow  shadow-[#ffffff1f] border border-[#ffffff49] rounded-md w-[90px] h-[40px] hover:bg-[#F25B38]    ${
-                  selectedGenre === genre.url ? "bg-[#F25B38] text-white" : ""
+                className={`mx-0.5 shadow  text-xs  shadow-[#ffffff1f] border border-[#ffffff49] rounded-md w-[70px] h-[30px] hover:bg-[#F25B38] ${
+                  selectedGenre === genre.url
+                    ? "bg-[#F25B38] text-white border border-[#ffffffce]"
+                    : ""
                 }`}
                 onClick={() => {
                   dispatch(GetMoviesByGenre({ movie_genre: [genre.url] }));

@@ -2,22 +2,37 @@
 import { useState, useEffect } from "react";
 import { FaFilm, FaStar } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { GetTrendingMovies } from "../../Redux/Movie";
+// import { GetTrendingMovies } from "../../Redux/Movie";
+import { GetMovies } from "../../Redux/Movie";
+
 import { AppDispatch } from "../../Redux/store";
+import PUBLIC_ROUTES from "../../utils/PublicRoutes";
 
 const Trending = () => {
-  const TrendingMovie = useSelector((state: any) => state.Movies.trending?.data);
+  // const TrendingMovie = useSelector((state: any) => state.Movies.trending?.data);
+  const Movies = useSelector((state: any) => state.Movies.movies?.data);
+
   const dispatch = useDispatch<AppDispatch>();
 
-  const [moviesData, setMoviesData] = useState(TrendingMovie);
+  // const [moviesData, setMoviesData] = useState(TrendingMovie);
+  const [moviesData, setMoviesData] = useState(Movies);
+
+  // useEffect(() => {
+  //   dispatch(GetTrendingMovies());
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+  // useEffect(() => {
+  //   setMoviesData(TrendingMovie);
+  // }, [TrendingMovie]);
 
   useEffect(() => {
-    dispatch(GetTrendingMovies());
+    dispatch(GetMovies());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    setMoviesData(TrendingMovie);
-  }, [TrendingMovie]);
+    setMoviesData(Movies);
+    // console.log(Movies);
+  }, [Movies]);
 
   // const trendData = [
   //   {
@@ -107,7 +122,7 @@ const Trending = () => {
   return (
     <div className="w-full h-auto mt-16 px-4 md:px-6 flex flex-col">
       <div className="flex flex-col mx-auto w-full justify-center">
-        <h1 className="text-3xl pt-6 font-Raleway">Trending</h1>
+        <h1 className="text-2xl pt-6 text-white font-Raleway">Trending</h1>
 
         <div className="flex flex-col mt-3">
           <div className="relative flex flex-row items-center justify-between">
@@ -115,8 +130,9 @@ const Trending = () => {
               <div className="flex flex-row h-[270px] w-auto  mr-36 ">
                 {moviesData &&
                   moviesData.map((d: any, i: any) => (
-                    <div
+                    <a
                       key={i}
+                      href={`${PUBLIC_ROUTES.MOVIE}/${d.movie_id}`}
                       className="m-2  w-[300px] h-[250px] bg-black rounded-md shadow shadow-[#ffffff44]  transition-transform duration-300 ease-in-out transform hover:scale-105  "
                     >
                       <div
@@ -126,7 +142,7 @@ const Trending = () => {
                         <div className="absolute flex ">
                           <div className="flex flex-row items-center pr-2">
                             <FaFilm size={18} className="text-white" />
-                            <p className="pl-2 font-Poppins">{d.movie_genre[0]}</p>{" "}
+                            <p className="pl-2 font-Poppins">{d.type}</p>
                           </div>
                         </div>
                       </div>
@@ -141,11 +157,11 @@ const Trending = () => {
                             <span className="pl-1 text-sm"> {d.rating}</span>
                           </p>
                           <p className=" ml-auto font-Poppins text-xs border border-[#ffffff71] rounded-full px-2">
-                            {d.type}
+                            {d.movie_genre[0]}
                           </p>
                         </div>
                       </div>
-                    </div>
+                    </a>
                   ))}
               </div>
             </div>

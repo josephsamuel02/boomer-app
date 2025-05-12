@@ -17,6 +17,7 @@ const ExplorePage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const Movies = useSelector((state: any) => state.Movies.movies.data);
   const MovieType = useSelector((state: any) => state.Movies.movie_type?.data);
+  const MovieByGenre = useSelector((state: any) => state.Movies.movie_by_genre?.data);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -27,6 +28,9 @@ const ExplorePage = () => {
   const [moviesData, setMoviesData] = useState(Movies);
 
   useEffect(() => {
+    // console.log("search", search);
+    // console.log("genre", genre);
+    // console.log("type", type);
     if (search) {
       dispatch(SearchMoviesByTitle({ movie_title: search }));
       setMoviesData(Movies);
@@ -34,7 +38,7 @@ const ExplorePage = () => {
 
     if (genre) {
       dispatch(GetMoviesByGenre({ movie_genre: [genre] }));
-      setMoviesData(Movies);
+      setMoviesData(MovieByGenre);
     }
 
     if (type) {
@@ -54,9 +58,9 @@ const ExplorePage = () => {
     setMoviesData(Movies);
   }, [Movies]);
 
-  useEffect(() => {
-    setMoviesData(MovieType);
-  }, [MovieType]);
+  // useEffect(() => {
+  //   setMoviesData(MovieType);
+  // }, [MovieType]);
   return (
     <div className="w-full h-auto bg-black pt-20 ">
       <Nav />

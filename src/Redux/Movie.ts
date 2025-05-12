@@ -98,12 +98,10 @@ export const SearchMoviesByTitle = createAsyncThunk(
   "search_movies_by_title",
   async (data: { movie_title: string }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
+      const response = await axios.post(
         `${import.meta.env.VITE_BOOMER_TEST_API}/movies/search`,
         {
-          params: {
-            movie_title: data.movie_title,
-          },
+          movie_title: `${data.movie_title}`,
         }
       );
 
