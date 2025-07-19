@@ -73,7 +73,7 @@ const DownloadLinks = ({ MovieByGenre, id, user_id }: compData) => {
   };
 
   const sortDownloadLinks = () => {
-    const sortedLinks = [...dLinks].sort((a, b) => b.rating - a.rating); // Create a new array and sort it
+    const sortedLinks = [...dLinks]?.sort((a, b) => b.rating - a.rating); // Create a new array and sort it
     setDLinks(sortedLinks); // Update the state with the sorted array
   };
 

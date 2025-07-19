@@ -63,7 +63,7 @@ const Banner = ({ movieData }: compData) => {
               </span>
             </h3>
             <h3 className="mx-3 text-xs md:text-md text-center text-white px-2 py-[2px] items-center font-Raleway   bg-[#7775753d] border border-[#ffffffd8]  rounded-2xl">
-              {movieData?.movie_genre.map((genre: any, index: any) => (
+              {movieData?.movie_genre?.map((genre: any, index: any) => (
                 <span key={index} className="mx-1 text-[8px] md:text-xs">
                   {genre}
                 </span>
@@ -83,17 +83,18 @@ const Banner = ({ movieData }: compData) => {
               )}
             </a>
           </div>
-          <div className="m-auto mt-5 w-full md:w-3/4 h-[250px] md:h-[210px] lg:h-[310px]  flex flex-col items-center  ">
-            <iframe
-              src={`https://www.youtube.com/embed/${youtubVid}?si=yj-GZA3legF6RuAt`}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-              className="w-full h-full object-contain"
-            ></iframe>
-          </div>
+          {youtubVid && (
+            <div className="m-auto mt-5 w-full md:w-3/4 h-[250px] md:h-[210px] lg:h-[310px]  flex flex-col items-center  ">
+              <iframe
+                src={`https://www.youtube.com/embed/${youtubVid}?si=yj-GZA3legF6RuAt`}
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                className="w-full h-full object-contain"
+              ></iframe>
+            </div>
+          )}
         </div>
       </div>
     </>
