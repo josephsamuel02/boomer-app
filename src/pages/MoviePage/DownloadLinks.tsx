@@ -6,10 +6,11 @@ import { Tooltip } from "react-tooltip";
 import PUBLIC_ROUTES from "../../utils/PublicRoutes";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../Redux/store";
-import { AddDownloadLink, RateDownloadLink } from "../../Redux/Movie";
+import { AddDownloadLink, GetMovieById, RateDownloadLink } from "../../Redux/Movie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Loading } from "../../components/Loading";
+
 interface compData {
   MovieByGenre: any;
   id: string;
@@ -18,11 +19,12 @@ interface compData {
 
 const DownloadLinks = ({ MovieByGenre, id, user_id }: compData) => {
   const dispatch = useDispatch<AppDispatch>();
-  const Movie = useSelector((state: any) => state.Movies.movie?.data);
+  const MovieData = useSelector((state: any) => state.Movies.movie?.data);
 
   const [loading, setLoading] = useState(false);
   const [downloadLinkCard, setDownloadLinkCard] = useState(false);
-  const [dLinks, setDLinks] = useState(Movie?.downloadLinks);
+  const [dLinks, setDLinks] = useState(MovieData?.downloadLinks);
+  const [Movie, setMovie] = useState(MovieData);
 
   const [addDownloadLink, setAddDownloadLink] = useState({
     url: "",
@@ -54,6 +56,13 @@ const DownloadLinks = ({ MovieByGenre, id, user_id }: compData) => {
             movie_id: id.toString(),
           })
         );
+
+        dispatch(GetMovieById({ movie_id: id.toString() }));
+        setMovie(MovieData);
+
+        toast.success("Download link added successfully");
+
+        window.location.reload();
         setAddDownloadLink({ url: "", movie_id: "", user_id: user_id });
         setDownloadLinkCard(false);
         setLoading(false);
@@ -62,10 +71,26 @@ const DownloadLinks = ({ MovieByGenre, id, user_id }: compData) => {
       return error;
     }
   };
+
   const sortDownloadLinks = () => {
     const sortedLinks = [...dLinks].sort((a, b) => b.rating - a.rating); // Create a new array and sort it
     setDLinks(sortedLinks); // Update the state with the sorted array
   };
+
+  const voteDownloadLink = (id: string, rating: "inc" | "dic") => {
+    dispatch(
+      RateDownloadLink({
+        id: id,
+        rating: rating,
+        user_id: user_id,
+      })
+    );
+    dispatch(GetMovieById({ movie_id: id }));
+    setMovie(MovieData);
+    sortDownloadLinks();
+    toast.success(`You ${rating === "inc" ? "liked" : "disliked"} this link`);
+  };
+
   useEffect(() => {
     sortDownloadLinks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,6 +99,7 @@ const DownloadLinks = ({ MovieByGenre, id, user_id }: compData) => {
   return (
     <div className="px-4 w-full h-auto py-4 bg-black">
       <h1 className="text-lg py-1 font-Raleway">You may also like</h1>
+
       <div className="flex flex-row py-3 w-full overflow-x-scroll">
         <div className="flex flex-row  h-auto w-auto  mr-16 ">
           {MovieByGenre &&
@@ -113,7 +139,9 @@ const DownloadLinks = ({ MovieByGenre, id, user_id }: compData) => {
             ))}
         </div>
       </div>
+
       <h1 className="text-lg py-3 mt-6 font-Raleway">Download Links</h1>
+
       <div className="flex flex-row py-3 w-full overflow-x-scroll">
         <div className="flex flex-row  h-auto w-auto  mr-16 ">
           <div
@@ -131,12 +159,12 @@ const DownloadLinks = ({ MovieByGenre, id, user_id }: compData) => {
             dLinks.map((d: any, i: any) => (
               <div
                 key={i}
-                className=" mx-3 w-52  px-3 py-1 bg-[#e1e1e2] flex flex-row items-center rounded-full"
+                className="mx-3 w-52 px-3 py-1 bg-[#e1e1e2] flex flex-row items-center rounded-full"
               >
                 <a
                   href={d.url}
                   target="_blank"
-                  className="truncate mr-2 text-xs font-Roboto font-bold w-32  text-black hover:text-blue-600 "
+                  className="truncate mr-2 text-xs font-Roboto font-bold w-32 text-black hover:text-blue-600 "
                 >
                   {d.url}
                 </a>
@@ -146,15 +174,7 @@ const DownloadLinks = ({ MovieByGenre, id, user_id }: compData) => {
                     key={i}
                     size={14}
                     className="text-green-700 hover:text-green-500 cursor-pointer"
-                    onClick={() =>
-                      dispatch(
-                        RateDownloadLink({
-                          id: d.id,
-                          rating: "inc",
-                          user_id: user_id,
-                        })
-                      )
-                    }
+                    onClick={() => voteDownloadLink(d.id, "inc")}
                   />
                 )}
 
@@ -179,6 +199,7 @@ const DownloadLinks = ({ MovieByGenre, id, user_id }: compData) => {
             ))}
         </div>
       </div>
+
       {downloadLinkCard && (
         <div className="w-full h-full fixed left-0 right-0 bottom-0 top-20">
           <div className="relative top-28 md:top-36 left-0 right-0 mx-auto w-[96%] md:w-[550px] h-[190px] border-2 border-[#757474] bg-[#0e0d0dd2] rounded-xl z-20">
@@ -201,6 +222,7 @@ const DownloadLinks = ({ MovieByGenre, id, user_id }: compData) => {
               }
               className=" resize-none mx-auto px-4 py-2 mt-2 flex w-3/4 h-[60px] bg-[#0e0e0ed5] border border-[#757474] rounded-lg"
             ></textarea>
+
             <input
               type="button"
               value="Add"
@@ -210,7 +232,9 @@ const DownloadLinks = ({ MovieByGenre, id, user_id }: compData) => {
           </div>
         </div>
       )}
+
       {loading == true && <Loading />}
+
       <ToastContainer />
     </div>
   );

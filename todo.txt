@@ -1,0 +1,2 @@
+1. Websocket & Redis for the backend
+2. make the download links upload a live update

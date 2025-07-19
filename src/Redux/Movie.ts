@@ -86,7 +86,6 @@ export const GetMoviesByType = createAsyncThunk(
           type: data.type,
         },
       });
-
       return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);

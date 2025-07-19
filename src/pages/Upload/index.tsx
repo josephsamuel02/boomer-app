@@ -9,12 +9,10 @@ import axios from "axios";
 import { Loading } from "../../components/Loading";
 import { clearMovieUploadState, UploadMovie } from "../../Redux/Movie";
 import { AppDispatch } from "../../Redux/store";
-import { useNavigate } from "react-router-dom";
 const Upload = () => {
-  const UploadResponse = useSelector((state: any) => state.Movies.data.status);
+  const UploadResponse = useSelector((state: any) => state.Movies.movie.status);
 
   const dispatch = useDispatch<AppDispatch>();
-  const Navigate = useNavigate();
 
   const MyProfile = useSelector((state: any) => state.Auth.myProfile.data);
 
@@ -67,6 +65,7 @@ const Upload = () => {
     { label: "Faith", value: "faith" },
     { label: "Others", value: "others" },
   ];
+
   const Industry = [
     { label: "Hollywood", value: "hollywood" },
     { label: "Bollywood", value: "bollywood" },
@@ -113,6 +112,7 @@ const Upload = () => {
     if (uploadedImageUrl) {
       const newData = { ...updateData, movie_poster_image: [uploadedImageUrl] };
       setUpdateData(newData);
+      console.log(newData);
       await dispatch(UploadMovie(newData));
     } else {
       await dispatch(UploadMovie(updateData));
@@ -121,8 +121,8 @@ const Upload = () => {
     setLoading(false);
 
     if (UploadResponse === 200) {
-      // window.location.reload();
-      Navigate(0);
+      window.location.reload();
+      // Navigate(0);
     }
   };
 
@@ -135,6 +135,7 @@ const Upload = () => {
   }, []);
   useEffect(() => {
     dispatch(clearMovieUploadState());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [UploadResponse]);
   return (
     <div className="w-full h-full bg-black pt-18 md:pt-20 flex flex-col items-center">
@@ -152,7 +153,7 @@ const Upload = () => {
           <input
             type="file"
             accept="image/*"
-            multiple
+            multiple={false}
             name="file input"
             id=""
             onChange={(e: any) => handleImageChange(e)}

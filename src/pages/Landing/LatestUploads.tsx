@@ -64,7 +64,6 @@ const LatestUploads = () => {
       return;
     }
     setMoviesData(MoviesByGenre);
-    console.log("MoviesByGenre", MoviesByGenre);
   }, [MoviesByGenre]);
 
   return (

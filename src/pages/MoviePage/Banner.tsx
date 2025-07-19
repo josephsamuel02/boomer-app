@@ -101,4 +101,3 @@ const Banner = ({ movieData }: compData) => {
 };
 
 export default Banner;
-// bg-[url('/images/strange-darling-poster.jpg')]
