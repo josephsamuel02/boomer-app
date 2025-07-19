@@ -73,10 +73,13 @@ const Nav = () => {
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 flex flex-row w-full h-auto px-4 py-4 backdrop-blur-md bg-[#08050571] border-b border-[#ffffff44] items-center z-40">
+      <div className="fixed top-0 left-0 right-0 flex flex-row w-full h-auto px-4 py-2 md:py-4 backdrop-blur-md bg-[#08050571] border-b border-[#ffffff44] items-center z-40">
         <a href="/" className=" text-xl md:text-3xl font-bold font-Poppins md:ml-3 mr-auto">
-          BOOMER
-          <img src="" alt="" />
+          <img
+            src="/images/Boomer.png"
+            alt="Boomer-website-logo"
+            className="w-14 h-14 object-cover items-center"
+          />
         </a>
 
         {/* Desktop Menu */}
@@ -206,14 +209,14 @@ const Nav = () => {
 
         {!user?.user_id && (
           <a href={PUBLIC_ROUTES.SIGNUP} className="flex-shrink-0 mr-3">
-            <p className="text-[12px] md:text-[16px] text-white text-center px-3 md:px-10 py-1.5 md:py-2 bg-primary hover:bg-[#ad4831] font-Poppins   rounded-full cursor-pointer">
+            <p className="text-[12px] md:text-[16px] text-white text-center px-3 md:px-10 py-1.5 md:py-2 bg-primary hover:bg-[#ad4831] font-Nunito   rounded cursor-pointer">
               Sign Up
             </p>
           </a>
         )}
         {!user?.user_id && (
           <a href={PUBLIC_ROUTES.LOGIN} className="flex-shrink-0 mr-3">
-            <p className="text-[12px] md:text-[16px] text-white text-center px-3 md:px-10 py-1.5 md:py-2 bg-primary hover:bg-[#ad4831] font-Poppins   rounded-full cursor-pointer">
+            <p className="text-[12px] md:text-[16px] text-white text-center px-3 md:px-10 py-1.5 md:py-2 bg-primary hover:bg-[#ad4831] font-Nunito   rounded cursor-pointer">
               Login
             </p>
           </a>

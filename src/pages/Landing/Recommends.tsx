@@ -88,13 +88,13 @@ const Recommends = () => {
   return (
     <div className="w-full h-auto mt-16 px-4 md:px-6 flex flex-col">
       <div className="flex flex-col mx-auto w-full justify-center">
-        <h1 className="text-lg md:text-3xl py-6 md:pb-auto   font-Raleway">Recommends</h1>
+        <h1 className="text-2xl py-6 md:pb-auto   font-Raleway">Recommends</h1>
         <div className="flex flex-row py-3 w-full overflow-x-scroll">
           <div className="flex flex-row  h-[270px] w-auto  mr-36 ">
             {trendData.map((d, i) => (
               <div
                 key={i}
-                className="w-[200px] h-[260px] bg-black shadow shadow-[#ffffff44] rounded mx-4 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+                className="w-[160px] h-[240px] bg-black shadow shadow-[#ffffff44] rounded mx-4 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
               >
                 <div
                   className="relative flex items-end justify-center w-full h-[70%] bg-cover bg-center rounded"
@@ -109,10 +109,10 @@ const Recommends = () => {
                 </div>
 
                 <div className="flex flex-col mt-2 ml-2">
-                  <h1 className=" line-clamp-2  h-[36px]   text-[12px] font-Raleway font-medium text-white ">
+                  <h1 className=" line-clamp-2  h-[36px] text-[12px] font-Nunito font-medium text-white ">
                     {d.title} Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                   </h1>
-                  <div className="px-1 flex flex-row items-center my-2 ">
+                  <div className="px-1 flex flex-row items-center my-2">
                     <p className="  flex flex-row items-center font-Poppins text-sm">
                       <FaStar className="text-[#FFFF00]" />
                       <span className="pl-1 text-sm"> {d.rating}</span>

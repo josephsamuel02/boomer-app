@@ -27,20 +27,22 @@ const Banner = ({ movieData }: compData) => {
           backgroundImage: `url(${
             movieData?.movie_poster_image ? movieData?.movie_poster_image : ""
           })`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
         }}
       >
         <div className=" m-1 w-auto h-[430px] md:h-[540px] flex flex-col md:flex-row items-center  ">
           {
             <img
               // src="/images/strange-darling-poster.jpg"
-
               src={
                 movieData?.movie_poster_image
                   ? movieData?.movie_poster_image
                   : "/images/strange-darling-poster.jpg"
               }
               alt="movie poster"
-              className="mx-auto w-auto h-full object-cover"
+              className="mx-auto w-auto h-full object-contain"
             />
           }
         </div>
@@ -56,22 +58,22 @@ const Banner = ({ movieData }: compData) => {
             <h3 className="text-md md:text-lg  text-white font-Roboto font-bold flex flex-row items-center ">
               <MdStar size={26} color="yellow" />
               {movieData?.rating}/10
-              <span className="mx-1 md:mx-3 text-xs md:text-sm font-Nunito font-normal italic">
+              <span className="mx-1 md:mx-3 text-xs text-center md:text-sm font-Nunito font-normal italic">
                 {movieData?.rating_count} Reviews
               </span>
             </h3>
-            <h3 className="mx-3 text-xs md:text-md text-white px-3 py-1 font-Raleway text-center bg-[#7775753d] border border-[#ffffffd8]  rounded-2xl">
+            <h3 className="mx-3 text-xs md:text-md text-center text-white px-2 py-[2px] items-center font-Raleway   bg-[#7775753d] border border-[#ffffffd8]  rounded-2xl">
               {movieData?.movie_genre.map((genre: any, index: any) => (
-                <span key={index} className="mx-1">
-                  | {genre}
+                <span key={index} className="mx-1 text-[8px] md:text-xs">
+                  {genre}
                 </span>
               ))}
             </h3>
             <a
               href={PUBLIC_ROUTES.MY_PROFILE}
-              className=" italic line-clamp-1 w-auto mx-3 text-xs  hover:text-blue-700 text-white flex flex-row items-center  py-1 font-Raleway    rounded-2xl"
+              className=" italic line-clamp-1 w-auto mx-3 text-xs text-center  hover:text-blue-700 text-white flex flex-row items-center  py-1 font-Raleway    rounded-2xl"
             >
-              Uploaded by @ {movieData?.poster_user_name}
+              Uploaded by @{movieData?.poster_user_name}
               {movieData?.poster_profile_image && (
                 <img
                   src={movieData?.poster_profile_image}

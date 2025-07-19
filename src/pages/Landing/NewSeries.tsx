@@ -21,9 +21,9 @@ const NewSeries = () => {
   }, [MovieType]);
 
   return (
-    <div className="w-full h-auto mt-16 px-4 md:px-6 flex flex-col">
+    <div className="w-full h-auto md:mt-16 px-4 md:px-6 flex flex-col">
       <div className="flex flex-col mx-auto w-full justify-center">
-        <h1 className="text-4xl py-6 font-Raleway">New Series</h1>
+        <h1 className="text-2xl py-6 font-Raleway">New Series</h1>
 
         <div className="flex flex-col mt-3">
           <div className="relative flex flex-row items-center justify-between">
@@ -35,7 +35,7 @@ const NewSeries = () => {
                     <a
                       href={`${PUBLIC_ROUTES.MOVIE}/${d.movie_id}`}
                       key={i}
-                      className="m-2  w-[300px] h-[250px] bg-black rounded-md shadow shadow-[#ffffff44] transition-transform duration-300 ease-in-out transform hover:scale-105  "
+                      className="m-2  w-[250px] h-[200px] bg-black rounded-md shadow shadow-[#ffffff44]  transition-transform duration-300 ease-in-out transform hover:scale-105  "
                     >
                       <div
                         className="relative flex items-end justify-end w-full h-[60%] bg-cover bg-center rounded-md"

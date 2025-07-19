@@ -60,11 +60,11 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="fixed top-[60px] md:top-[72px] w-full h-auto bg-[#0a0606e5] z-20 ">
-      <div className="  w-full py-2 md:py-6 h-auto flex flex-row md:px-2 md:items-center border-b border-[#ffffff6c] ">
+    <div className="fixed top-[70px] md:top-[72px] w-full h-auto backdrop-blur-md bg-[#08050571] z-20 ">
+      <div className=" w-full py-2 md:py-6 h-auto flex flex-row md:px-2 md:items-center   ">
         <div className="md:mx-auto w-auto md:w-6/12 h-auto px-3 md:pl-5 items-center flex flex-row ">
           <button
-            className="px-2 md:px-6 py-2 flex flex-row items-center mx-auto text-[8px] md:text-lg font-Poppins text-white bg-primary hover:bg-[#f5461e] rounded-l-md shadow"
+            className="px-2 md:px-6 py-2 flex flex-row items-center mx-auto text-[8px] md:text-lg font-Nunito text-white bg-primary hover:bg-[#f5461e] rounded-l-md shadow"
             onClick={async () =>
               await dispatch(SearchMoviesByTitle({ movie_title: searchText }))
             }
@@ -86,7 +86,7 @@ const SearchBar = () => {
             className=" w-[180px] md:w-4/5 h-auto px-1 md:px-4  text-black text-sm md:text-lg font-Poppins p-1 md:p-2 border-2 border-gray-600 rounded-r-md outline-none focus:outline-none"
           />
         </div>
-        <div className="ml-auto md:mx-auto w-1/3 md:w-4/12 h-auto px-1 md:px-3 md:pl-5 items-center flex flex-row   ">
+        <div className="ml-auto md:mx-auto w-2/3 md:w-4/12 h-auto px-1 md:px-3 md:pl-5 items-center flex flex-row   ">
           <div
             className="relative w-full md:w-[300px] p-2  md:pl-10 flex flex-row items-center bg-primary hover:bg-[#f5461e] rounded-md cursor-pointer"
             onClick={() => setIsOpen(true)}
@@ -98,7 +98,7 @@ const SearchBar = () => {
 
             {isOpen && (
               <div
-                className="absolute top-10 md:top-12 left-0 right-0 py-2 mx-auto w-full md:w-11/12 h-[430px] overflow-y-scroll flex flex-col    bg-black rounded-lg border border-white z-20"
+                className="absolute top-10 md:top-12 left-0 right-0 py-2 mx-auto w-full md:w-11/12 h-[430px] overflow-y-scroll flex flex-col bg-black rounded-lg border border-white z-20"
                 ref={modalRef}
               >
                 {Genre.options.map((d, i) => (

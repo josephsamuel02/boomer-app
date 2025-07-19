@@ -87,7 +87,7 @@ const LatestUploads = () => {
         </button>
       </div>
       <div className=" w-full flex flex-col md:flex-row md:items-center  p-4 pb-5">
-        <h1 className=" text-lg md:text-2xl py-6 md:pb-auto   font-Raleway">Latest Uploads</h1>
+        <h1 className="text-2xl py-6 md:pb-auto   font-Raleway">Latest Uploads</h1>
         <div className="flex w-auto md:ml-auto  overflow-x-scroll">
           <div className="flex flex-row w-auto mr-5 ">
             {/* Clear Filter Button */}
@@ -130,7 +130,7 @@ const LatestUploads = () => {
               <a
                 href={`${PUBLIC_ROUTES.MOVIE}/${d.movie_id}`}
                 key={i}
-                className="flex w-[300px] h-[250px] bg-cover bg-center relative items-end mt-4 rounded-md border border-[#a2a3a3ad]  bg-black   mx-2 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+                className="flex w-[250px] h-[200px] bg-cover bg-center relative items-end mt-4 rounded-md border border-[#a2a3a3ad]  bg-black   mx-2 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
                 style={{ backgroundImage: `url(${d.movie_poster_image})` }}
               >
                 <div className="w-full h-[100px] flex flex-col bg-black bg-opacity-10 backdrop-blur-md rounded-md">
@@ -140,19 +140,18 @@ const LatestUploads = () => {
                     </h1>
                     <div className="flex flex-row items-center h-auto mt-2">
                       <div className="flex flex-row items-center">
-                        <FaStar className="text-[#FFFF00]" />
-                        <p className="pl-1 text-sm">{d.rating}</p>
+                        <FaStar className="text-[#FFFF00]" size={13} />
+                        <p className="pl-1 text-xs">{d.rating}</p>
                       </div>
 
                       <div className="w-full flex flex-row items-center justify-around  ">
                         <span className="mx-1">|</span>
                         {d.movie_genre.map((genres: string, i: any) => (
-                          <p className="pl-1 text-sm" key={i}>
+                          <p className="pl-1 text-xs" key={i}>
                             {genres}
                           </p>
                         ))}
-
-                        <p className=" px-2 font-Poppins text-xs ml-auto border border-white rounded-full">
+                        <p className=" px-[6px] font-Nunito font-extralight  text-[11px] ml-auto border border-white rounded-full">
                           {d.type}
                         </p>
                       </div>

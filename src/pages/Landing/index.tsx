@@ -2,7 +2,7 @@
 
 import Navbar from "../../components/Navbar";
 import Adverts from "./Adverts";
-import Footer from "./Footer";
+import Footer from "../../components/Footer";
 import LatestUploads from "./LatestUploads";
 import NewSerires from "./NewSeries";
 import Recommends from "./Recommends";

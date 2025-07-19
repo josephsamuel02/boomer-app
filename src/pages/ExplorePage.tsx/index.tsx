@@ -12,6 +12,7 @@ import {
 } from "../../Redux/Movie";
 import { AppDispatch } from "../../Redux/store";
 import { useLocation } from "react-router-dom";
+import Footer from "../../components/Footer";
 
 const ExplorePage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -66,6 +67,7 @@ const ExplorePage = () => {
       <Nav />
       <SearchBar />
       <SearchResult moviesData={moviesData} />
+      <Footer />
     </div>
   );
 };

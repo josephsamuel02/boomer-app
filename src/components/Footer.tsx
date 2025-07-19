@@ -1,5 +1,4 @@
-import { FaFacebookF, FaFilm, FaInstagram, FaLinkedinIn, FaStar, FaTwitter } from "react-icons/fa";
-import { useState } from "react";
+import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -10,8 +9,8 @@ const Footer = () => {
           <div className="mb-6 md:mb-0">
             <h2 className="text-2xl font-bold mb-4">Your Brand</h2>
             <p className="text-gray-400 w-[300px]">
-              Your brand description goes here. Describe your mission, vision,
-              or a tagline that represents your site.
+              Your brand description goes here. Describe your mission, vision, or a tagline
+              that represents your site.
             </p>
           </div>
 
@@ -23,9 +22,7 @@ const Footer = () => {
               <a href="#" className="text-gray-400 hover:text-white">
                 Home
               </a>
-              <a href="#" className="text-gray-400 hover:text-white">
-                About Us
-              </a>
+
               <a href="#" className="text-gray-400 hover:text-white">
                 Services
               </a>
@@ -62,18 +59,13 @@ const Footer = () => {
               <a href="#" className="hover:text-gray-400">
                 <FaInstagram />
               </a>
-              <a href="#" className="hover:text-gray-400">
-                <FaLinkedinIn />
-              </a>
             </div>
           </div>
         </div>
 
         {/* Footer Bottom */}
         <div className="mt-8 text-center text-gray-500">
-          <p>
-            &copy; {new Date().getFullYear()} Your Brand. All rights reserved.
-          </p>
+          <p>&copy; {new Date().getFullYear()} Your Brand. All rights reserved.</p>
         </div>
       </div>
     </div>
