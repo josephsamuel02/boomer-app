@@ -24,7 +24,7 @@ const PUBLIC_ROUTES = {
   ADMIN_LOGIN: "/admin/login",
   ADMIN_DASHBOARD: "/admin/dashboard",
   ADMIN_MOVIES: "/admin/movies",
-  // ADMIN_DASHBOARD: "/admin/dashboard",
+  ADMIN_EDIT_MOVIE: "/admin/edit_movie",
 
   // CONSULTATION PAGE: FOR PAYMENTS AND CUSTOMER SERVICE
   TERMS_AND_CONDITIONS: "/terms_and_conditions",

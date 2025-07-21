@@ -214,14 +214,6 @@ const Nav = () => {
           </a>
         )}
 
-        {/* {!user?.user_id && (
-          <a href={PUBLIC_ROUTES.SIGNUP} className="flex-shrink-0 mr-3">
-            <p className="text-[12px] md:text-[16px] text-white text-center px-3 md:px-10 py-1.5 md:py-2 bg-primary hover:bg-[#ad4831] font-Nunito   rounded cursor-pointer">
-              Sign Up
-            </p>
-          </a>
-        )} */}
-
         {!user?.user_id && (
           <a href={PUBLIC_ROUTES.ADMIN_LOGIN} className="flex-shrink-0 mr-3">
             <p className="text-[12px] md:text-[16px] text-white text-center px-3 md:px-10 py-1.5 md:py-2 bg-primary hover:bg-[#ad4831] font-Nunito   rounded cursor-pointer">
