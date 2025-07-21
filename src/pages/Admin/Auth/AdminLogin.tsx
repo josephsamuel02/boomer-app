@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import PUBLIC_ROUTES from "../../utils/PublicRoutes";
-import { clearState, LoginUser } from "../../Redux/AuthSlice";
+import PUBLIC_ROUTES from "../../../utils/PublicRoutes";
+import { clearState, LoginUser } from "../../../Redux/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../Redux/store";
-import { Loading } from "../../components/Loading";
+import { AppDispatch } from "../../../Redux/store";
+import { Loading } from "../../../components/Loading";
 import { useNavigate } from "react-router-dom";
-import Nav from "../../components/Navbar";
+import Nav from "../../../components/Navbar";
 
-const Login: React.FC = () => {
+const AdminLogin: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const Navigate = useNavigate();
   const LogInResponse = useSelector((state: any) => state.Auth.auth.status);
@@ -129,4 +129,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;

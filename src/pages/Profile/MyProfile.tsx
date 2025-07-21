@@ -91,6 +91,7 @@ const MyProfile = () => {
     setUser(MyProfile);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [MyProfile]);
+
   return (
     <div className="w-full h-full bg-black pt-20">
       <Nav />

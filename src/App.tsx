@@ -10,6 +10,8 @@ import MyProfile from "./pages/Profile/MyProfile.tsx";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { clearState } from "./Redux/AuthSlice.ts";
+import AdminLogin from "./pages/Admin/Auth/AdminLogin.tsx";
+import Dashboard from "./pages/Admin/Dashboard/index.tsx";
 
 const checkTokenExpiry = () => {
   const token = localStorage.getItem("boomer_token");
@@ -54,6 +56,18 @@ const App = () => {
 
         <Route path={PUBLIC_ROUTES.SIGNUP} element={<Signup />} />
         <Route path={PUBLIC_ROUTES.LOGIN} element={<Login />} />
+
+        <Route path={PUBLIC_ROUTES.ADMIN_LOGIN} element={<AdminLogin />} />
+        <Route path={PUBLIC_ROUTES.ADMIN_DASHBOARD} element={<Dashboard />} />
+        {/* 404 page */}
+        <Route
+          path="*"
+          element={
+            <div className="flex items-center justify-center h-screen">
+              <h1 className="text-4xl font-bold">404 - Page Not Found</h1>
+            </div>
+          }
+        />
       </Routes>
     </div>
   );

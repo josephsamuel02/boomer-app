@@ -3,6 +3,7 @@
 import { MdStar } from "react-icons/md";
 import PUBLIC_ROUTES from "../../utils/PublicRoutes";
 import { useEffect, useState } from "react";
+import getYouTubeVideoID from "./extractVide";
 
 interface compData {
   movieData: any;
@@ -12,9 +13,8 @@ const Banner = ({ movieData }: compData) => {
   const [youtubVid, setYoutubeVid] = useState<string>("");
 
   const extractVideoId = (url: any) => {
-    const youtubeUrlRegex = /(?:youtube\.com\/.*v=|youtu\.be\/)([\w\-]{11})/;
-    const match = url.match(youtubeUrlRegex);
-    setYoutubeVid(match ? match[1] : " ");
+    const cleanLink = getYouTubeVideoID(url);
+    setYoutubeVid(cleanLink ? cleanLink : "");
   };
 
   useEffect(() => extractVideoId(`${movieData?.movie_trailer}`), [movieData]);

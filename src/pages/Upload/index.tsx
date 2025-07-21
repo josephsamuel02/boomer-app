@@ -133,10 +133,12 @@ const Upload = () => {
     setLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
     dispatch(clearMovieUploadState());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [UploadResponse]);
+
   return (
     <div className="w-full h-full bg-black pt-18 md:pt-20 flex flex-col items-center">
       <Nav />
