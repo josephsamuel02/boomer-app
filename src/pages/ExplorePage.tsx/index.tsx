@@ -24,7 +24,7 @@ const ExplorePage = () => {
   const queryParams = new URLSearchParams(location.search);
 
   const search = queryParams.get("search"); // e.g., ?search=value
-  const genre = queryParams.get("genre"); // e.g., ?genre=value
+  const genre = queryParams.get("genre");
   const type = queryParams.get("type");
   const [moviesData, setMoviesData] = useState(Movies);
 
@@ -62,6 +62,7 @@ const ExplorePage = () => {
   // useEffect(() => {
   //   setMoviesData(MovieType);
   // }, [MovieType]);
+
   return (
     <div className="w-full h-auto bg-black pt-20 ">
       <Nav />

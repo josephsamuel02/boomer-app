@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { clearState } from "./Redux/AuthSlice.ts";
 import AdminLogin from "./pages/Admin/Auth/AdminLogin.tsx";
 import Dashboard from "./pages/Admin/Dashboard/index.tsx";
+import EditMovie from "./pages/Admin/EditMovie/index.tsx";
 
 const checkTokenExpiry = () => {
   const token = localStorage.getItem("boomer_token");
@@ -59,6 +60,9 @@ const App = () => {
 
         <Route path={PUBLIC_ROUTES.ADMIN_LOGIN} element={<AdminLogin />} />
         <Route path={PUBLIC_ROUTES.ADMIN_DASHBOARD} element={<Dashboard />} />
+        <Route path={PUBLIC_ROUTES.ADMIN_EDIT_MOVIE} element={<EditMovie />} />
+        <Route path={`${PUBLIC_ROUTES.ADMIN_EDIT_MOVIE}/:id`} element={<EditMovie />} />
+
         {/* 404 page */}
         <Route
           path="*"

@@ -53,7 +53,6 @@ export const GetMovieById = createAsyncThunk(
           },
         }
       );
-
       return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
