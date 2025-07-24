@@ -18,7 +18,12 @@ const Sidenav = () => {
           <a
             href={PUBLIC_ROUTES.ADMIN_DASHBOARD}
             className="flex flex-row items-center text-white p-2 hover:text-gray-400 hover:bg-[#0f0a24] rounded cursor-pointer "
-            // style={{ background: "dashboard" == "dashboard" ? "#0f0a24" : "transparent" }}
+            style={{
+              background:
+                location.pathname === PUBLIC_ROUTES.ADMIN_DASHBOARD
+                  ? "#0f0a24"
+                  : "transparent",
+            }}
           >
             <MdOutlineDashboard className="text-gray-600 text-[30px]" />
             <span className="hidden md:flex ml-2">Dashboard</span>
@@ -26,30 +31,49 @@ const Sidenav = () => {
           <a
             href={PUBLIC_ROUTES.ADMIN_EDIT_MOVIE}
             className="flex flex-row items-center text-white p-2 hover:text-gray-400 hover:bg-[#0f0a24]  rounded cursor-pointer "
-            // style={{ background: menu == "edit" ? "#0f0a24" : "transparent" }}
+            style={{
+              background:
+                location.pathname === PUBLIC_ROUTES.ADMIN_EDIT_MOVIE
+                  ? "#0f0a24"
+                  : "transparent",
+            }}
           >
             <MdMovieEdit className="text-gray-600 text-[30px]" />
             <span className="hidden md:flex ml-2">Edit Movies</span>
           </a>
 
-          <li
+          <a
+            href={PUBLIC_ROUTES.ADMIN_RECOMMENDS}
             className="flex flex-row items-center text-white p-2 hover:text-gray-400 hover:bg-[#0f0a24]  rounded cursor-pointer "
-            // style={{ background: menu == "recommends" ? "#0f0a24" : "transparent" }}
+            style={{
+              background:
+                location.pathname === PUBLIC_ROUTES.ADMIN_RECOMMENDS
+                  ? "#0f0a24"
+                  : "transparent",
+            }}
           >
             <MdCheckCircleOutline className="text-gray-600 text-[30px]" />
             <span className="hidden md:flex ml-2">Recommends</span>
-          </li>
+          </a>
 
           <li
             className="flex flex-row items-center text-white p-2 hover:text-gray-400 hover:bg-[#0f0a24]  rounded cursor-pointer "
-            // style={{ background: menu == "manageUsers" ? "#0f0a24" : "transparent" }}
+            style={{
+              background:
+                location.pathname === PUBLIC_ROUTES.ADMIN_MANAGE_USERS
+                  ? "#0f0a24"
+                  : "transparent",
+            }}
           >
             <MdManageAccounts className="text-gray-600 text-[30px]" />
             <span className="hidden md:flex ml-2"> Manage Users</span>
           </li>
           <li
             className="flex flex-row items-center text-white p-2 hover:text-gray-400 hover:bg-[#0f0a24]  rounded cursor-pointer "
-            //  style={{ background: menu == "settings" ? "#0f0a24" : "transparent" }}
+            style={{
+              background:
+                location.pathname === PUBLIC_ROUTES.ADMIN_SETTINGS ? "#0f0a24" : "transparent",
+            }}
           >
             <MdOutlineSettings className="text-gray-600 text-[30px]" />
             <span className="hidden md:flex ml-2"> Settings</span>

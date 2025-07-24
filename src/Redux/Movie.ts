@@ -143,6 +143,8 @@ export const UpdateMovie = createAsyncThunk(
 
       return response.data;
     } catch (error: any) {
+      console.error("Error updating movie:", error);
+      // Handle the error appropriately
       return rejectWithValue(error.response.data);
     }
   }

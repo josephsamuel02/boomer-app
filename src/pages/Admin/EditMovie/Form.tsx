@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import Select from "react-select";
@@ -116,11 +117,14 @@ const Form: React.FC<FormProps> = ({ movieId }) => {
         movie_poster_image:
           uploadedImageUrl && uploadedImageUrl !== "" ? [uploadedImageUrl] : [image],
       };
-      setUpdateData(newData);
-      console.log(newData);
-      await dispatch(UpdateMovie(newData));
+      const { id: any, downloadLinks, ...rest } = newData; // Remove the id field if it exists
+
+      setUpdateData(rest);
+      console.log(rest);
+      await dispatch(UpdateMovie(rest));
     } else {
-      await dispatch(UpdateMovie(updateData));
+      const { id: any, downloadLinks, ...rest } = updateData;
+      await dispatch(UpdateMovie(rest));
     }
 
     setLoading(false);
@@ -211,7 +215,7 @@ const Form: React.FC<FormProps> = ({ movieId }) => {
               }))
             }
             options={Genre}
-            defaultInputValue={[...updateData.movie_genre]}
+            defaultInputValue={updateData.movie_genre}
             className="text-primary border border-[#ffffff8c] rounded-lg"
             styles={customStyles}
           />

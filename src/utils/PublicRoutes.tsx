@@ -25,6 +25,10 @@ const PUBLIC_ROUTES = {
   ADMIN_DASHBOARD: "/admin/dashboard",
   ADMIN_MOVIES: "/admin/movies",
   ADMIN_EDIT_MOVIE: "/admin/edit_movie",
+  ADMIN_MOVIE_PAGE: "/admin/movie_page",
+  ADMIN_RECOMMENDS: "/admin/recommends",
+  ADMIN_MANAGE_USERS: "/admin/manage_users",
+  ADMIN_SETTINGS: "/admin/settings",
 
   // CONSULTATION PAGE: FOR PAYMENTS AND CUSTOMER SERVICE
   TERMS_AND_CONDITIONS: "/terms_and_conditions",
