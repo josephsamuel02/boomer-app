@@ -155,7 +155,7 @@ const DownloadLinks = ({ MovieByGenre, id, user_id }: compData) => {
             <MdAdd size={20} color="black" className="m-auto" />
           </div>
 
-          {dLinks &&
+          {dLinks.length !== 0 &&
             dLinks.map((d: any, i: any) => (
               <div
                 key={i}

@@ -63,7 +63,7 @@ const Movies = () => {
 
       <div className="w-full my-5  md:px-4 rounded-lg">
         <div className="flex flex-row flex-wrap gap-2 items-center py-3 w-full ">
-          {Data &&
+          {Data.length !== 0 &&
             Data.map((d: any, i: any) => (
               <div
                 key={i}
