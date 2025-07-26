@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FaFilm, FaStar } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +17,7 @@ const Main = () => {
   useEffect(() => {
     dispatch(GetRecommendedMovies());
     dispatch(GetMovies());
-  });
+  }, []);
   useEffect(() => {
     setMoviesData(Movies);
     setRecommended(RecommendedMovies);

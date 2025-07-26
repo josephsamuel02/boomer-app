@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FaFilm, FaStar } from "react-icons/fa";
 import PUBLIC_ROUTES from "../../utils/PublicRoutes";
@@ -14,7 +15,6 @@ const NewSeries = () => {
 
   useEffect(() => {
     dispatch(GetMoviesByType({ type: "series" }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -28,7 +28,6 @@ const NewSeries = () => {
 
         <div className="flex flex-col mt-3">
           <div className="relative flex flex-row items-center justify-between">
-            {/* Trending Cards */}
             <div className="flex flex-row  w-full overflow-x-scroll">
               <div className="flex flex-row h-[270px] w-auto  mr-36 ">
                 {moviesData &&

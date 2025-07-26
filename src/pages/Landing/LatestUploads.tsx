@@ -50,12 +50,8 @@ const LatestUploads = () => {
     }
   };
 
-  // Display only the first 4 movies
-  // Get unique genres and limit to the first 5
-
   useEffect(() => {
     dispatch(GetMovies());
-    // dispatch(GetMoviesByGenre({ movie_genre: [] }));
   }, []);
 
   useEffect(() => {

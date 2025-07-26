@@ -65,10 +65,7 @@ const Nav = () => {
       dispatch(GetMyProfile());
       setUser(MyProfile);
     }
-  }, []);
-
-  useEffect(() => {
-    setUser(MyProfile);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

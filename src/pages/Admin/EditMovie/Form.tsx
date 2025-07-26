@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
@@ -158,11 +159,6 @@ const Form: React.FC<FormProps> = ({ movieId }) => {
       setUpdateData(Movie);
     }
   }, []);
-
-  // useEffect(() => {
-  //   // dispatch(clearMovieUploadState());
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [UploadResponse]);
 
   useEffect(() => {
     if (Movie) {

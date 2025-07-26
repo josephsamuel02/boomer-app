@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { FaFilm, FaStar } from "react-icons/fa";
@@ -36,7 +37,7 @@ const Movies = () => {
 
   useEffect(() => {
     dispatch(GetMovies());
-  });
+  }, []);
 
   useEffect(() => {
     setData(Movies);

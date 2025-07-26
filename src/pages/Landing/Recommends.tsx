@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { FaFilm, FaStar } from "react-icons/fa";
@@ -13,7 +14,7 @@ const Recommends = () => {
 
   useEffect(() => {
     dispatch(GetRecommendedMovies());
-  });
+  }, []);
 
   useEffect(() => {
     // Update the Data state whenever RecommendedMovies changes
