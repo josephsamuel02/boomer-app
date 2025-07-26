@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Routes, Route } from "react-router-dom";
 import PUBLIC_ROUTES from "./utils/PublicRoutes";
 import Landing from "./pages/Landing";
@@ -16,35 +17,31 @@ import EditMovie from "./pages/Admin/EditMovie/index.tsx";
 import AdminMoviePage from "./pages/Admin/MoviePage/index.tsx";
 import RecommendsPage from "./pages/Admin/Recomends/index.tsx";
 import AdminExplorePage from "./pages/Admin/ExplorePage.tsx/index.tsx";
+import { useEffect } from "react";
 
-const checkTokenExpiry = () => {
-  const token = localStorage.getItem("boomer_token");
-  if (token) {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const decoded: any = jwtDecode(token);
-
-      const expiryTime = decoded.exp * 1000;
-      const currentTime = Date.now();
-
-      if (currentTime > expiryTime) {
-        // Token is expired
-        return true;
-      }
-    } catch (error) {
-      return { message: "Error decoding token:", error: error };
-    }
-  }
-
-  return false; // Token is valid or not present
-};
 const App = () => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    const checkTokenExpiry = () => {
+      const token = localStorage.getItem("boomer_token");
+      if (token) {
+        try {
+          const decoded: any = jwtDecode(token);
+          const expiryTime = decoded.exp * 1000;
+          const currentTime = Date.now();
 
-  if (checkTokenExpiry()) {
-    dispatch(clearState());
-    localStorage.removeItem("boomer_token");
-  }
+          if (currentTime > expiryTime) {
+            dispatch(clearState());
+            localStorage.removeItem("boomer_token");
+          }
+        } catch (error) {
+          console.error("Error decoding token:", error);
+        }
+      }
+    };
+
+    checkTokenExpiry();
+  }, [dispatch]);
 
   return (
     <div className="bg-[#01010b] text-white min-h-screen">
