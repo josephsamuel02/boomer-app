@@ -98,7 +98,7 @@ const Nav = () => {
             Home
           </a>
           <a
-            href={PUBLIC_ROUTES.EXPLORE_PAGE}
+            href={PUBLIC_ROUTES.ADMIN_EXPLORE_PAGE}
             className="text-[14px] px-3 font-Poppins cursor-pointer hover:text-primary "
           >
             Movies
@@ -119,7 +119,7 @@ const Nav = () => {
               >
                 {Genre.options.map((d, i) => (
                   <a
-                    href={`${PUBLIC_ROUTES.ADMIN_MOVIES}?genre=${d.genre}`}
+                    href={`${PUBLIC_ROUTES.ADMIN_EXPLORE_PAGE}?genre=${d.genre}`}
                     className="text-md font-Poppins mx-1 p-1 text-white hover:border border-white rounded-sm"
                     key={i}
                   >
@@ -160,7 +160,7 @@ const Nav = () => {
                 >
                   {Genre.options.map((d, i) => (
                     <a
-                      href={`${PUBLIC_ROUTES.ADMIN_MOVIES}?genre=${d.genre}`}
+                      href={`${PUBLIC_ROUTES.ADMIN_EXPLORE_PAGE}?genre=${d.genre}`}
                       className="text-md font-Poppins mx-1 p-1 text-white hover:border border-[#ffffff6b] rounded-sm"
                       key={i}
                       onClick={() => setIsMobileMenuOpen(false)}

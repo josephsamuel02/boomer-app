@@ -6,7 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 import axios from "axios";
 import { AppDispatch } from "../../../Redux/store";
-import { GetMovieById, UpdateMovie } from "../../../Redux/Movie";
+import {
+  clearMovieUploadState,
+  DeleteMovie,
+  GetMovieById,
+  UpdateMovie,
+} from "../../../Redux/Movie";
 import { Loading } from "../../../components/Loading";
 
 interface FormProps {
@@ -14,7 +19,7 @@ interface FormProps {
 }
 
 const Form: React.FC<FormProps> = ({ movieId }) => {
-  const UploadResponse = useSelector((state: any) => state.Movies.movie.status);
+  // const UploadResponse = useSelector((state: any) => state.Movies.movie.status);
   const Movie = useSelector((state: any) => state.Movies.movie.data);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -28,19 +33,19 @@ const Form: React.FC<FormProps> = ({ movieId }) => {
   const [updateData, setUpdateData] = useState<any>({
     user_id: MyProfile.user_id,
     poster_id: MyProfile.user_id,
-    poster_profile_image: MyProfile.profile_img,
-    poster_user_name: MyProfile.user_name,
+    poster_profile_image: MyProfile?.profile_img ? MyProfile?.profile_img : "",
+    poster_user_name: MyProfile?.user_name ? MyProfile?.user_name : "",
     editors_id: [],
-    movie_title: Movie.movie_title,
+    movie_title: Movie?.movie_title ? Movie?.movie_title : "",
     movie_id: movieId,
     movie_poster_image_id: image,
-    synopsis: Movie.synopsis,
-    movie_genre: Movie.movie_genre,
-    released: Movie.released,
-    type: Movie.type,
-    release_date: Movie.release_date,
-    movie_trailer: Movie.movie_trailer,
-    industry: Movie.industry,
+    synopsis: Movie?.synopsis ? Movie?.synopsis : "",
+    movie_genre: Movie?.movie_genre ? Movie?.movie_genre : [],
+    released: Movie?.released ? Movie?.released : false,
+    type: Movie?.type ? Movie?.type : "single",
+    release_date: Movie?.release_date ? Movie?.release_date : "",
+    movie_trailer: Movie?.movie_trailer ? Movie?.movie_trailer : "",
+    industry: Movie?.industry ? Movie?.industry : "",
   });
 
   const Genre = [
@@ -126,7 +131,7 @@ const Form: React.FC<FormProps> = ({ movieId }) => {
       const { id: any, downloadLinks, ...rest } = updateData;
       await dispatch(UpdateMovie(rest));
     }
-
+    dispatch(clearMovieUploadState());
     setLoading(false);
 
     // if (UploadResponse === 200) {
@@ -135,20 +140,29 @@ const Form: React.FC<FormProps> = ({ movieId }) => {
     // }
   };
 
+  const deleteMovie = async () => {
+    setLoading(true);
+    await dispatch(DeleteMovie(movieId));
+    setLoading(false);
+    dispatch(clearMovieUploadState());
+  };
+
   useEffect(() => setShowSubmitBTN(true), []);
 
   useEffect(() => {
-    // dispatch(clearMovieUploadState());
     setLoading(false);
-    dispatch(GetMovieById({ movie_id: movieId }));
+    dispatch(clearMovieUploadState());
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (movieId !== "" || movieId !== undefined || movieId !== null) {
+      dispatch(GetMovieById({ movie_id: movieId }));
+      setUpdateData(Movie);
+    }
   }, []);
 
-  useEffect(() => {
-    // dispatch(clearMovieUploadState());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [UploadResponse]);
+  // useEffect(() => {
+  //   // dispatch(clearMovieUploadState());
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [UploadResponse]);
 
   useEffect(() => {
     if (Movie) {
@@ -156,177 +170,190 @@ const Form: React.FC<FormProps> = ({ movieId }) => {
         setImage(Movie.movie_poster_image[0]);
       }
     }
-
-    setUpdateData(Movie);
   }, [Movie]);
 
   return (
-    <div className="w-full h-full bg-black pt-18 md:pt-20 flex flex-col items-center">
-      <div className="mx-auto py-6 pt-20  w-11/12 md:w-[480px] h-auto flex flex-col items-center">
-        {image && (
-          <img
-            src={image instanceof File ? URL.createObjectURL(image) : image}
-            alt="poster"
-            className="mb-6 w-2/3 h-auto border border-[#ffffff3b] rounded"
-          />
-        )}
+    <>
+      {Movie && Object.keys(Movie).length > 0 && (
+        <div className="w-full h-full bg-black pt-0 md:pt-0 flex flex-col items-center">
+          <div className="mx-auto py-4 pt-8  w-11/12 md:w-[480px] h-auto flex flex-col items-center">
+            <button
+              onClick={() => deleteMovie()}
+              className="mx-auto my-8 md:mt-20 w-auto h-auto px-6 py-2 text-center bg-rose-900 hover:bg-rose-800 text-white rounded shadow-md"
+            >
+              Delete Movie
+            </button>
 
-        <div className="w-full h-auto">
-          <h3 className="text-md text-primary">Select movie poster</h3>
-          <input
-            type="file"
-            accept="image/*"
-            multiple={false}
-            name="file input"
-            id=""
-            onChange={(e: any) => handleImageChange(e)}
-            className="my-2 w-full h-auto border border-[#ffffff8c] 
+            {image && (
+              <img
+                src={image instanceof File ? URL.createObjectURL(image) : image}
+                alt="poster"
+                className="mb-6 w-2/3 h-auto border border-[#ffffff3b] rounded"
+              />
+            )}
+
+            <div className="w-full h-auto">
+              <h3 className="text-md text-primary">Select movie poster</h3>
+              <input
+                type="file"
+                accept="image/*"
+                multiple={false}
+                name="file input"
+                id=""
+                onChange={(e: any) => handleImageChange(e)}
+                className="my-2 w-full h-auto border border-[#ffffff8c] 
       rounded-full text-xs text-slate-500
       file:mr-2 file:py-2 file:px-4
       file:rounded-full file:border-0
       file:text-sm file:font-semibold
       file:bg-violet-50 file:text-primary
       hover:file:bg-violet-100"
-          />
-        </div>
-
-        <div className="w-full h-auto mt-4">
-          <h3 className="text-md text-primary">Movie title</h3>
-          <input
-            type="text"
-            name="movie_title"
-            placeholder="Title"
-            value={updateData.movie_title}
-            className="text-sm text-slate-400 mb-2 w-full h-auto py-2 px-2 border border-[#ffffff8c] bg-black rounded-lg"
-            onChange={(e) =>
-              setUpdateData((prev: any) => ({ ...prev, movie_title: e.target.value }))
-            }
-          />
-        </div>
-
-        <div className="w-full h-auto mt-4">
-          <h3 className="text-md text-primary">Movie Genre</h3>
-          <Select
-            isMulti
-            onChange={(selectedOption) =>
-              setUpdateData((prev: any) => ({
-                ...prev,
-                movie_genre: selectedOption.map((option) => option.value),
-              }))
-            }
-            options={Genre}
-            defaultInputValue={updateData.movie_genre}
-            className="text-primary border border-[#ffffff8c] rounded-lg"
-            styles={customStyles}
-          />
-        </div>
-
-        <div className="w-full h-auto mt-4">
-          <h3 className="text-md text-primary"> Type</h3>
-          <Select
-            onChange={(option: any) =>
-              setUpdateData((prev: any) => ({
-                ...prev,
-                type: option.value,
-              }))
-            }
-            options={[
-              { label: "Single", value: "single" },
-              { label: "Series", value: "series" },
-            ]}
-            defaultInputValue={updateData.type}
-            className="text-primary border border-[#ffffff8c] rounded-lg"
-            styles={customStyles}
-          />
-        </div>
-
-        <div className="w-full h-auto mt-4">
-          <h3 className="text-md text-primary">Industry</h3>
-          <Select
-            onChange={(option: any) =>
-              setUpdateData((prev: any) => ({
-                ...prev,
-                industry: option.value,
-              }))
-            }
-            options={Industry}
-            defaultInputValue={updateData.industry}
-            className="text-primary border border-[#ffffff8c] rounded-lg"
-            styles={customStyles}
-          />
-        </div>
-
-        <div className="w-full h-auto mt-4">
-          <h3 className="text-md text-primary">
-            About / Synopsis <span className="text-slate-500">(optional)</span>
-          </h3>
-          <textarea
-            name="synopsis"
-            placeholder="About the movie"
-            className=" resize-none text-sm text-slate-400 mb-2 w-full h-auto py-2 px-2 border border-[#ffffff8c] bg-black rounded-lg"
-            defaultValue={updateData.synopsis}
-            onChange={(e) =>
-              setUpdateData((prev: any) => ({ ...prev, synopsis: e.target.value }))
-            }
-          />
-        </div>
-
-        <div className="w-full h-auto mt-4">
-          <h3 className="text-md text-primary">Movie Trailer</h3>
-          <input
-            type="text"
-            name="movie_trailer"
-            placeholder="Paste YouTube link"
-            className="mb-2 w-full h-auto py-2 px-2 border border-[#ffffff8c] bg-black rounded-lg text-md text-slate-500"
-            defaultValue={updateData.movie_trailer}
-            onChange={(e) =>
-              setUpdateData((prev: any) => ({ ...prev, movie_trailer: e.target.value }))
-            }
-          />
-        </div>
-
-        <div className="w-full h-auto mt-4">
-          <h3 className="text-md text-primary">Released</h3>
-          <div className="flex items-center gap-4">
-            <label className="flex items-center text-slate-400">
-              <input
-                type="radio"
-                name="released"
-                // value={ updateData.released ? "yes"}
-                checked={updateData.released === true}
-                onChange={() => setUpdateData((prev: any) => ({ ...prev, released: true }))}
-                className="mr-2 cursor-pointer"
               />
-              Yes
-            </label>
+            </div>
 
-            <label className="flex items-center text-slate-400">
+            <div className="w-full h-auto mt-4">
+              <h3 className="text-md text-primary">Movie title</h3>
               <input
-                type="radio"
-                name="released"
-                value="no"
-                checked={updateData.released === false}
-                onChange={() => setUpdateData((prev: any) => ({ ...prev, released: false }))}
-                className="mr-2 cursor-pointer"
+                type="text"
+                name="movie_title"
+                placeholder="Title"
+                value={updateData?.movie_title && updateData?.movie_title}
+                className="text-sm text-slate-400 mb-2 w-full h-auto py-2 px-2 border border-[#ffffff8c] bg-black rounded-lg"
+                onChange={(e) =>
+                  setUpdateData((prev: any) => ({ ...prev, movie_title: e.target.value }))
+                }
               />
-              No
-            </label>
-          </div>
-        </div>
+            </div>
 
-        {showSubmitBTN && (
-          <div className="w-full h-auto mt-4">
-            <input
-              type="button"
-              value={"Post"}
-              onClick={updateMovie}
-              className="mb-2 w-full h-auto  text-lg font-Poppins text-white py-2  px-2  bg-primary    rounded-full cursor-pointer"
-            />
+            <div className="w-full h-auto mt-4">
+              <h3 className="text-md text-primary">Movie Genre</h3>
+              <Select
+                isMulti
+                onChange={(selectedOption) =>
+                  setUpdateData((prev: any) => ({
+                    ...prev,
+                    movie_genre: selectedOption.map((option) => option.value),
+                  }))
+                }
+                options={Genre}
+                defaultInputValue={updateData?.movie_genre && updateData?.movie_genre}
+                className="text-primary border border-[#ffffff8c] rounded-lg"
+                styles={customStyles}
+              />
+            </div>
+
+            <div className="w-full h-auto mt-4">
+              <h3 className="text-md text-primary"> Type</h3>
+              <Select
+                onChange={(option: any) =>
+                  setUpdateData((prev: any) => ({
+                    ...prev,
+                    type: option.value,
+                  }))
+                }
+                options={[
+                  { label: "Single", value: "single" },
+                  { label: "Series", value: "series" },
+                ]}
+                defaultInputValue={updateData?.type && updateData?.type}
+                className="text-primary border border-[#ffffff8c] rounded-lg"
+                styles={customStyles}
+              />
+            </div>
+
+            <div className="w-full h-auto mt-4">
+              <h3 className="text-md text-primary">Industry</h3>
+              <Select
+                onChange={(option: any) =>
+                  setUpdateData((prev: any) => ({
+                    ...prev,
+                    industry: option.value,
+                  }))
+                }
+                options={Industry}
+                defaultInputValue={updateData?.industry && updateData?.industry}
+                className="text-primary border border-[#ffffff8c] rounded-lg"
+                styles={customStyles}
+              />
+            </div>
+
+            <div className="w-full h-auto mt-4">
+              <h3 className="text-md text-primary">
+                About / Synopsis <span className="text-slate-500">(optional)</span>
+              </h3>
+              <textarea
+                name="synopsis"
+                placeholder="About the movie"
+                className=" resize-none text-sm text-slate-400 mb-2 w-full h-auto py-2 px-2 border border-[#ffffff8c] bg-black rounded-lg"
+                defaultValue={updateData?.synopsis && updateData?.synopsis}
+                onChange={(e) =>
+                  setUpdateData((prev: any) => ({ ...prev, synopsis: e.target.value }))
+                }
+              />
+            </div>
+
+            <div className="w-full h-auto mt-4">
+              <h3 className="text-md text-primary">Movie Trailer</h3>
+              <input
+                type="text"
+                name="movie_trailer"
+                placeholder="Paste YouTube link"
+                className="mb-2 w-full h-auto py-2 px-2 border border-[#ffffff8c] bg-black rounded-lg text-md text-slate-500"
+                defaultValue={updateData?.movie_trailer && updateData?.movie_trailer}
+                onChange={(e) =>
+                  setUpdateData((prev: any) => ({ ...prev, movie_trailer: e.target.value }))
+                }
+              />
+            </div>
+
+            <div className="w-full h-auto mt-4">
+              <h3 className="text-md text-primary">Released</h3>
+              <div className="flex items-center gap-4">
+                <label className="flex items-center text-slate-400">
+                  <input
+                    type="radio"
+                    name="released"
+                    // value={ updateData?.released ? "yes"}
+                    checked={updateData?.released === true}
+                    onChange={() =>
+                      setUpdateData((prev: any) => ({ ...prev, released: true }))
+                    }
+                    className="mr-2 cursor-pointer"
+                  />
+                  Yes
+                </label>
+
+                <label className="flex items-center text-slate-400">
+                  <input
+                    type="radio"
+                    name="released"
+                    value="no"
+                    checked={updateData?.released === false}
+                    onChange={() =>
+                      setUpdateData((prev: any) => ({ ...prev, released: false }))
+                    }
+                    className="mr-2 cursor-pointer"
+                  />
+                  No
+                </label>
+              </div>
+            </div>
+
+            {showSubmitBTN && (
+              <div className="w-full h-auto mt-4">
+                <input
+                  type="button"
+                  value={"Post"}
+                  onClick={updateMovie}
+                  className="mb-2 w-full h-auto  text-lg font-Poppins text-white py-2  px-2  bg-primary    rounded-full cursor-pointer"
+                />
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      {loading == true && <Loading />}
-    </div>
+          {loading == true && <Loading />}
+        </div>
+      )}
+    </>
   );
 };
 

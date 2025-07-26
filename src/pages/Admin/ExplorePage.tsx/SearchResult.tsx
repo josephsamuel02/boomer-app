@@ -1,34 +1,45 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FaFilm, FaStar } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import PUBLIC_ROUTES from "../../../utils/PublicRoutes";
-import { AppDispatch } from "../../../Redux/store";
-import { GetMovies, GetRecommendedMovies } from "../../../Redux/Movie";
 
-const Main = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const RecommendedMovies = useSelector((state: any) => state.Movies.recommended.data);
+interface compData {
+  moviesData: any;
+}
 
+const SearchResult = ({ moviesData }: compData) => {
   const Movies = useSelector((state: any) => state.Movies.movies.data);
-  const [Recommended, setRecommended] = useState(RecommendedMovies);
-  const [moviesData, setMoviesData] = useState(Movies);
+  const MoviesByGenre = useSelector((state: any) => state.Movies.movie_by_genre?.data);
+
+  const [Data, setData] = useState(moviesData);
+  const [otherMovies, setOtherMovies] = useState(Movies);
+
   useEffect(() => {
-    dispatch(GetRecommendedMovies());
-    dispatch(GetMovies());
-  });
+    setData(moviesData);
+    setOtherMovies(Movies);
+  }, [moviesData, Movies]);
+
   useEffect(() => {
-    setMoviesData(Movies);
-    setRecommended(RecommendedMovies);
-  }, [Movies, RecommendedMovies]);
+    setData(MoviesByGenre);
+  }, [MoviesByGenre]);
 
   return (
-    <div className="w-full h-auto p-6 ">
-      <h1 className="text-xl py-2 font-Raleway">Latest Uploads</h1>
+    <div className="w-full mx-auto h-auto bg-black mt-10 md:mt-32">
+      <div className="w-full px-2 md:mx-8  py-2">
+        {Data.length > 0 ? (
+          <h3 className="text-[18px] font-Poppins text-white">
+            Results
+            <span className="text-[#f75313]">({Data && Data.length})</span>
+          </h3>
+        ) : (
+          <h3 className="text-[20px] font-Poppins text-white">No Results Found </h3>
+        )}
+      </div>
 
       <div className="flex flex-row flex-wrap gap-4 items-center h-auto w-full  ">
-        {moviesData &&
-          moviesData.slice(0, 10).map((d: any, i: any) => (
+        {Data &&
+          Data.slice(0, 10).map((d: any, i: any) => (
             <div
               key={i}
               className="w-[120px] h-[200px] mx-auto my-4 bg-black shadow shadow-[#ffffff44] rounded  transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg cursor-pointer"
@@ -70,11 +81,17 @@ const Main = () => {
             </div>
           ))}
       </div>
+      <hr className="mt-32" />
 
-      <h1 className="text-xl py-6   font-Raleway">Recommends</h1>
-      <div className="flex flex-row flex-wrap gap-3 items-center py-3 w-full ">
-        {Recommended.length != 0 &&
-          Recommended.slice(0, 10).map((d: any, i: any) => (
+      {/* // other movies */}
+
+      <div className="w-full px-2 md:mx-8  py-6">
+        <h3 className="text-[20px] font-Raleway text-white">Other Movies </h3>
+      </div>
+
+      <div className="flex flex-row flex-wrap gap-4 items-center h-auto w-full  ">
+        {otherMovies &&
+          otherMovies.slice(0, 10).map((d: any, i: any) => (
             <div
               key={i}
               className="w-[120px] h-[200px] mx-auto my-4 bg-black shadow shadow-[#ffffff44] rounded  transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg cursor-pointer"
@@ -119,4 +136,5 @@ const Main = () => {
     </div>
   );
 };
-export default Main;
+
+export default SearchResult;

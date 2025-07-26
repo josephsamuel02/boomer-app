@@ -15,6 +15,7 @@ import Dashboard from "./pages/Admin/Dashboard/index.tsx";
 import EditMovie from "./pages/Admin/EditMovie/index.tsx";
 import AdminMoviePage from "./pages/Admin/MoviePage/index.tsx";
 import RecommendsPage from "./pages/Admin/Recomends/index.tsx";
+import AdminExplorePage from "./pages/Admin/ExplorePage.tsx/index.tsx";
 
 const checkTokenExpiry = () => {
   const token = localStorage.getItem("boomer_token");
@@ -63,6 +64,8 @@ const App = () => {
         <Route path={PUBLIC_ROUTES.ADMIN_LOGIN} element={<AdminLogin />} />
         <Route path={PUBLIC_ROUTES.ADMIN_DASHBOARD} element={<Dashboard />} />
         <Route path={`${PUBLIC_ROUTES.ADMIN_MOVIE_PAGE}/:id`} element={<AdminMoviePage />} />
+        {/* you can  use query string url?search= , genre= or type="series" in addition to explore page */}
+        <Route path={`${PUBLIC_ROUTES.ADMIN_EXPLORE_PAGE}`} element={<AdminExplorePage />} />
 
         <Route path={PUBLIC_ROUTES.ADMIN_EDIT_MOVIE} element={<EditMovie />} />
         <Route path={`${PUBLIC_ROUTES.ADMIN_EDIT_MOVIE}/:id`} element={<EditMovie />} />

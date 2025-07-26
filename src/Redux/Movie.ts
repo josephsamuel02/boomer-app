@@ -196,6 +196,69 @@ export const RateDownloadLink = createAsyncThunk(
   }
 );
 
+// === GET RECOMMENDED MOVIES ===
+export const GetRecommendedMovies = createAsyncThunk(
+  "get_recommended_movies",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BOOMER_TEST_API}/movies/get_recommendations`
+      );
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// === UPDATE MOVIE RECOMMEND FLAG ===
+export const UpdateMovieRecommendation = createAsyncThunk(
+  "update_movie_recommendation",
+  async (data: { movie_id: string; recommend: boolean }, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("boomer_token");
+
+      const response = await axios.put(
+        `${import.meta.env.VITE_BOOMER_TEST_API}/movies/update_recommends`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// === DELETE MOVIE ===
+export const DeleteMovie = createAsyncThunk(
+  "delete_movie",
+  async (movie_id: string, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("boomer_token");
+      const response = await axios.delete(
+        `${import.meta.env.VITE_BOOMER_TEST_API}/movies/delete`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            movie_id, // Pass the movie_id as a query parameter
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 const initialState = {
   movies: [],
   movie_by_genre: [],
@@ -220,6 +283,7 @@ export const MovieSlice: any = createSlice({
 
     clearMovieUploadState: (state) => {
       state.data = {};
+      state.movie = {};
     },
   },
   extraReducers: (builder) => {
@@ -341,6 +405,44 @@ export const MovieSlice: any = createSlice({
         state.data = action.payload;
       })
       .addCase(RateDownloadLink.rejected, (state, action: any) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(GetRecommendedMovies.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(GetRecommendedMovies.fulfilled, (state, action: any) => {
+        state.status = "succeeded";
+        state.recommended = action.payload;
+      })
+      .addCase(GetRecommendedMovies.rejected, (state, action: any) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(UpdateMovieRecommendation.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(UpdateMovieRecommendation.fulfilled, (state, action: any) => {
+        state.status = "succeeded";
+        state.data = action.payload;
+      })
+      .addCase(UpdateMovieRecommendation.rejected, (state, action: any) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(DeleteMovie.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(DeleteMovie.fulfilled, (state, action: any) => {
+        state.status = "succeeded";
+        state.data = action.payload;
+        // optionally filter out the deleted movie from state.movies
+        state.movies = state.movies.filter((movie: any) => movie.movie_id !== action.meta.arg);
+      })
+      .addCase(DeleteMovie.rejected, (state, action: any) => {
         state.status = "failed";
         state.error = action.payload;
       });

@@ -27,6 +27,7 @@ const PUBLIC_ROUTES = {
   ADMIN_EDIT_MOVIE: "/admin/edit_movie",
   ADMIN_MOVIE_PAGE: "/admin/movie_page",
   ADMIN_RECOMMENDS: "/admin/recommends",
+  ADMIN_EXPLORE_PAGE: "/admin/explore",
   ADMIN_MANAGE_USERS: "/admin/manage_users",
   ADMIN_SETTINGS: "/admin/settings",
 

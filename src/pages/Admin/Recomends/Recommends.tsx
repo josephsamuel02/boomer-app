@@ -1,16 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { FaFilm, FaStar } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch } from "../../../Redux/store";
 import PUBLIC_ROUTES from "../../../utils/PublicRoutes";
-
+import { GetRecommendedMovies, UpdateMovieRecommendation } from "../../../Redux/Movie";
 const Recommends = () => {
-  const MoviesByGenre = useSelector((state: any) => state.Movies.movies?.data);
-  const [Data, setData] = useState(MoviesByGenre);
+  const dispatch = useDispatch<AppDispatch>();
+  const RecommendedMovies = useSelector((state: any) => state.Movies.recommended.data);
+  const [Data, setData] = useState(RecommendedMovies);
 
   useEffect(() => {
-    setData(MoviesByGenre);
-  }, [MoviesByGenre]);
+    dispatch(GetRecommendedMovies());
+  });
+
+  useEffect(() => {
+    setData(RecommendedMovies);
+  }, [RecommendedMovies]);
+
+  const removeRecommendation = (movieId: string) => {
+    dispatch(UpdateMovieRecommendation({ movie_id: movieId, recommend: false }));
+    dispatch(GetRecommendedMovies());
+  };
 
   return (
     <div className="w-full h-auto items-center    pt-4 md:pt-8  bg-black">
@@ -55,12 +66,13 @@ const Recommends = () => {
                   </div>
                 </div>
 
-                <a
-                  href={`${PUBLIC_ROUTES.ADMIN_EDIT_MOVIE}/${d.movie_id}`}
+                <div
+                  // href={`${PUBLIC_ROUTES.ADMIN_EDIT_MOVIE}/${d.movie_id}`}
+                  onClick={() => removeRecommendation(d.movie_id)}
                   className="w-full h-auto flex flex-col items-center bg-black hover:bg-red-600 rounded-b-md"
                 >
                   <h3 className="text-[9px] font-poppins text-center p-1">Remove</h3>
-                </a>
+                </div>
               </div>
             ))}
         </div>

@@ -4,18 +4,19 @@ import { FaFilm, FaStar } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../../Redux/store";
 import PUBLIC_ROUTES from "../../../utils/PublicRoutes";
-import { SearchMoviesByTitle } from "../../../Redux/Movie";
+import {
+  GetMovies,
+  GetRecommendedMovies,
+  SearchMoviesByTitle,
+  UpdateMovieRecommendation,
+} from "../../../Redux/Movie";
 
 const Movies = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const MoviesByGenre = useSelector((state: any) => state.Movies.movies?.data);
-  const [Data, setData] = useState(MoviesByGenre);
+  const Movies = useSelector((state: any) => state.Movies.movies?.data);
+  const [Data, setData] = useState(Movies);
   const [query, setQuery] = useState("");
-
-  useEffect(() => {
-    setData(MoviesByGenre);
-  }, [MoviesByGenre]);
 
   const handleSearch = () => {
     if (query.trim()) {
@@ -28,6 +29,18 @@ const Movies = () => {
       handleSearch();
     }
   };
+  const addRecommendation = (movieId: string) => {
+    dispatch(UpdateMovieRecommendation({ movie_id: movieId, recommend: true }));
+    dispatch(GetRecommendedMovies());
+  };
+
+  useEffect(() => {
+    dispatch(GetMovies());
+  });
+
+  useEffect(() => {
+    setData(Movies);
+  }, [Movies]);
 
   return (
     <div className="w-full h-auto flex flex-col items-center bg-black">
@@ -51,7 +64,7 @@ const Movies = () => {
       <div className="w-full my-5  md:px-4 rounded-lg">
         <div className="flex flex-row flex-wrap gap-2 items-center py-3 w-full ">
           {Data &&
-            Data.slice(0, 10).map((d: any, i: any) => (
+            Data.map((d: any, i: any) => (
               <div
                 key={i}
                 className="w-[100px] h-[180px] mx-auto  mb-5  bg-black shadow shadow-[#ffffff44] rounded  transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg cursor-pointer"
@@ -84,12 +97,13 @@ const Movies = () => {
                   </div>
                 </div>
 
-                <a
-                  href={`${PUBLIC_ROUTES.ADMIN_EDIT_MOVIE}/${d.movie_id}`}
+                <div
+                  // href={`${PUBLIC_ROUTES.ADMIN_EDIT_MOVIE}/${d.movie_id}`}
+                  onClick={() => addRecommendation(d.movie_id)}
                   className="w-full h-auto flex flex-col items-center bg-slate-900 hover:bg-green-600 rounded-b-md"
                 >
                   <h3 className="text-[9px] font-poppins text-center p-1">Recommend</h3>
-                </a>
+                </div>
               </div>
             ))}
         </div>

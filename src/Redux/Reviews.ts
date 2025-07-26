@@ -118,6 +118,7 @@ export const ReviewSlice: any = createSlice({
       })
       .addCase(GetReviews.rejected, (state, action: any) => {
         state.status = "failed";
+        state.reviews = [];
         state.error = action.payload;
       })
       .addCase(AddReview.pending, (state) => {
