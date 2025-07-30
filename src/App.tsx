@@ -18,6 +18,7 @@ import AdminMoviePage from "./pages/Admin/MoviePage/index.tsx";
 import RecommendsPage from "./pages/Admin/Recomends/index.tsx";
 import AdminExplorePage from "./pages/Admin/ExplorePage.tsx/index.tsx";
 import { useEffect } from "react";
+import AboutUs from "./pages/WebsiteInfo/About.tsx";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -68,7 +69,7 @@ const App = () => {
         <Route path={`${PUBLIC_ROUTES.ADMIN_EDIT_MOVIE}/:id`} element={<EditMovie />} />
         <Route path={PUBLIC_ROUTES.ADMIN_RECOMMENDS} element={<RecommendsPage />} />
 
-        {/* Other routes can be added here */}
+        <Route path={PUBLIC_ROUTES.ABOUT_US} element={<AboutUs />} />
 
         {/* 404 page */}
         <Route

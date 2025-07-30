@@ -235,6 +235,21 @@ export const UpdateMovieRecommendation = createAsyncThunk(
   }
 );
 
+export const getTopRatedMovies = createAsyncThunk(
+  "top_rated_movies",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BOOMER_TEST_API}/movies/top_rated`
+      );
+
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 // === DELETE MOVIE ===
 export const DeleteMovie = createAsyncThunk(
   "delete_movie",
@@ -259,6 +274,7 @@ export const DeleteMovie = createAsyncThunk(
     }
   }
 );
+
 const initialState = {
   movies: [],
   movie_by_genre: [],
@@ -266,6 +282,7 @@ const initialState = {
   new_series: [],
   movie_type: [],
   trending: [],
+  top_rated: [],
   movie: {},
   data: {},
   status: "idle",
@@ -420,6 +437,19 @@ export const MovieSlice: any = createSlice({
         state.status = "failed";
         state.error = action.payload;
       })
+
+      .addCase(getTopRatedMovies.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(getTopRatedMovies.fulfilled, (state, action: any) => {
+        state.status = "succeeded";
+        state.top_rated = action.payload;
+      })
+      .addCase(getTopRatedMovies.rejected, (state, action: any) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
       .addCase(UpdateMovieRecommendation.pending, (state) => {
         state.status = "loading";
         state.error = null;
@@ -451,5 +481,4 @@ export const MovieSlice: any = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { clearMovieUploadState } = MovieSlice.actions;
-
 export default MovieSlice.reducer;

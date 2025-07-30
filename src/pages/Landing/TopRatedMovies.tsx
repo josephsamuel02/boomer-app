@@ -1,16 +1,14 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect, useRef } from "react";
 import { FaChevronLeft, FaChevronRight, FaFilm, FaStar } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { GetRecommendedMovies } from "../../Redux/Movie";
 import { AppDispatch } from "../../Redux/store";
 import PUBLIC_ROUTES from "../../utils/PublicRoutes";
+import { getTopRatedMovies } from "../../Redux/Movie";
 
-const Recommends = () => {
+const GetTopRatedMovies = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const RecommendedMovies = useSelector((state: any) => state.Movies.recommended.data);
-  const [Data, setData] = useState(RecommendedMovies);
+  const TopRated = useSelector((state: any) => state.Movies.top_rated?.data);
+  const [Data, setData] = useState(TopRated);
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -27,27 +25,24 @@ const Recommends = () => {
   };
 
   useEffect(() => {
-    dispatch(GetRecommendedMovies());
+    dispatch(getTopRatedMovies());
   }, []);
 
   useEffect(() => {
-    // Update the Data state whenever RecommendedMovies changes
-    if (!RecommendedMovies) return;
-    if (RecommendedMovies.length === 0) {
+    if (!TopRated) return;
+    if (TopRated.length === 0) {
       setData([]);
       return;
     }
-    setData(RecommendedMovies);
-  }, [RecommendedMovies]);
+    setData(TopRated);
+  }, [TopRated]);
 
   return (
     <div className="w-full h-auto mt-16 px-4 md:px-6 flex flex-col relative">
       <div className="flex flex-col mx-auto w-full justify-center">
-        <h1 className="text-2xl py-6 md:pb-auto font-Raleway">Recommended </h1>
+        <h1 className="text-2xl py-6 md:pb-auto font-Raleway">Top Rated</h1>
 
-        {/* Scrollable Container with Buttons */}
         <div className="relative w-full">
-          {/* Left Scroll Button */}
           <button
             onClick={scrollLeft}
             className="absolute left-0 top-[50%] transform -translate-y-1/2 z-10 bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-2 rounded-full"
@@ -55,7 +50,6 @@ const Recommends = () => {
             <FaChevronLeft color="orangered" />
           </button>
 
-          {/* Scrollable List */}
           <div
             ref={scrollRef}
             className="flex flex-row py-3 w-full overflow-x-scroll scroll-smooth no-scrollbar"
@@ -112,6 +106,4 @@ const Recommends = () => {
   );
 };
 
-export default Recommends;
-
-// Recommends
+export default GetTopRatedMovies;

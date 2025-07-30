@@ -7,6 +7,7 @@ import LatestUploads from "./LatestUploads";
 import NewSerires from "./NewSeries";
 import Recommends from "./Recommends";
 import Trending from "./Trending";
+import GetTopRatedMovies from "./TopRatedMovies";
 
 const Landing = () => {
   return (
@@ -14,6 +15,7 @@ const Landing = () => {
       <Navbar />
       <Trending />
       <LatestUploads />
+      <GetTopRatedMovies />
       <Recommends />
       <Adverts />
       <NewSerires />

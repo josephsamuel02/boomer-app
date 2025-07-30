@@ -9,8 +9,8 @@ const Footer = () => {
           <div className="mb-6 md:mb-0">
             <h2 className="text-2xl font-bold mb-4">Your Brand</h2>
             <p className="text-gray-400 w-[300px]">
-              Your brand description goes here. Describe your mission, vision, or a tagline
-              that represents your site.
+              CineDrop Real ratings. Honest reviews. Download and share movies with the
+              community.
             </p>
           </div>
 
@@ -24,9 +24,6 @@ const Footer = () => {
               </a>
 
               <a href="#" className="text-gray-400 hover:text-white">
-                Services
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white">
                 Contact
               </a>
             </div>
@@ -34,9 +31,7 @@ const Footer = () => {
             {/* Links Column 2 */}
             <div className="flex flex-col space-y-2">
               <h3 className="text-lg font-semibold">Legal</h3>
-              <a href="#" className="text-gray-400 hover:text-white">
-                Privacy Policy
-              </a>
+
               <a href="#" className="text-gray-400 hover:text-white">
                 Terms of Service
               </a>
@@ -64,7 +59,7 @@ const Footer = () => {
         </div>
 
         {/* Footer Bottom */}
-        <div className="mt-8 text-center text-gray-500">
+        <div className=" text-center text-sm text-gray-500">
           <p>&copy; {new Date().getFullYear()} Your Brand. All rights reserved.</p>
         </div>
       </div>

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FaStar } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { FaChevronLeft, FaChevronRight, FaStar } from "react-icons/fa";
+import { useEffect, useRef, useState } from "react";
 import PUBLIC_ROUTES from "../../utils/PublicRoutes";
 import { AppDispatch } from "../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,13 +43,22 @@ const LatestUploads = () => {
   const [searchText, setSearchText] = useState("");
   const handleKeyDown = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      // Trigger the dispatch when Enter is pressed
-      // dispatch(SearchMoviesByTitle({ movie_title: searchText }));
-
       navigate(`${PUBLIC_ROUTES.EXPLORE_PAGE}?search=${searchText}`);
     }
   };
+  const scrollRef = useRef<HTMLDivElement>(null);
 
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -300, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
+    }
+  };
   useEffect(() => {
     dispatch(GetMovies());
   }, []);
@@ -64,7 +73,6 @@ const LatestUploads = () => {
 
   return (
     <div className="w-full h-auto mt-16 px-4 md:px-6 flex flex-col">
-      {/* Search Bar with Button */}
       <div className="flex items-center md:mb-6 rounded-lg  ">
         <input
           type="text"
@@ -118,48 +126,66 @@ const LatestUploads = () => {
         </div>
       </div>
       {/* Movie Cards */}
-      <div className="flex w-full overflow-x-scroll">
-        <div className="flex flex-row py-4 w-auto mr-20 ">
-          {moviesData &&
-            moviesData.slice(0, 10).map((d: any, i: any) => (
-              <a
-                href={`${PUBLIC_ROUTES.MOVIE}/${d.movie_id}`}
-                key={i}
-                className="flex w-[250px] h-[200px] bg-cover bg-center relative items-end mt-4 rounded-md border border-[#a2a3a3ad]  bg-black   mx-2 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
-                style={{ backgroundImage: `url(${d.movie_poster_image})` }}
-              >
-                <div className="w-full h-[100px] flex flex-col bg-black bg-opacity-10 backdrop-blur-md rounded-md">
-                  <div className="flex flex-col m-3">
-                    <h1 className=" text-sm font-Raleway font-medium text-white ">
-                      {d.movie_title}
-                    </h1>
-                    <div className="flex flex-row items-center h-auto mt-2">
-                      <div className="flex flex-row items-center">
-                        <FaStar className="text-[#FFFF00]" size={13} />
-                        <p className="pl-1 text-xs">{d.rating}</p>
-                      </div>
+      <div className="relative w-full">
+        {/* Scroll Buttons */}
+        <button
+          onClick={scrollLeft}
+          className="absolute z-10 left-0 top-1/3 bg-black bg-opacity-60 text-white p-2 rounded-full shadow-md hover:scale-110 transition"
+        >
+          <FaChevronLeft color="orangered" />
+        </button>
 
-                      <div className="w-full flex flex-row items-center justify-around  ">
-                        <span className="mx-1">|</span>
-                        {d.movie_genre.map((genres: string, i: any) => (
-                          <p className="pl-1 text-xs" key={i}>
-                            {genres}
+        <button
+          onClick={scrollRight}
+          className="absolute z-10 right-0 top-1/3 bg-black bg-opacity-60 text-white p-2 rounded-full shadow-md hover:scale-110 transition"
+        >
+          <FaChevronRight color="orangered" />
+        </button>
+
+        <div className="flex w-full overflow-x-scroll scroll-smooth" ref={scrollRef}>
+          <div className="flex flex-row py-4 w-auto mr-20">
+            {moviesData?.length > 0 ? (
+              moviesData.slice(0, 10).map((d: any, i: number) => (
+                <a
+                  href={`${PUBLIC_ROUTES.MOVIE}/${d.movie_id}`}
+                  key={i}
+                  className="flex w-[250px] h-[200px] bg-cover bg-center relative items-end mt-4 rounded-md border border-[#a2a3a3ad] bg-black mx-2 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+                  style={{ backgroundImage: `url(${d.movie_poster_image})` }}
+                >
+                  <div className="w-full h-[100px] flex flex-col bg-black bg-opacity-10 backdrop-blur-md rounded-md">
+                    <div className="flex flex-col m-3">
+                      <h1 className="text-sm font-Raleway font-medium text-white">
+                        {d.movie_title}
+                      </h1>
+                      <div className="flex flex-row items-center h-auto mt-2">
+                        <div className="flex flex-row items-center">
+                          <FaStar className="text-[#FFFF00]" size={13} />
+                          <p className="pl-1 text-xs">{d.rating}</p>
+                        </div>
+
+                        <div className="w-full flex flex-row items-center justify-around">
+                          <span className="mx-1">|</span>
+                          {d.movie_genre.map((genres: string, j: number) => (
+                            <p className="pl-1 text-xs" key={j}>
+                              {genres}
+                            </p>
+                          ))}
+                          <p className="px-[6px] font-Nunito font-extralight text-[11px] ml-auto border border-white rounded-full">
+                            {d.type}
                           </p>
-                        ))}
-                        <p className=" px-[6px] font-Nunito font-extralight  text-[11px] ml-auto border border-white rounded-full">
-                          {d.type}
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </a>
-            ))}
+                </a>
+              ))
+            ) : (
+              <p className="text-center text-red-500">No movies found</p>
+            )}
+          </div>
         </div>
-        {moviesData?.length === 0 && (
-          <p className="text-center text-red-500">No movies found</p>
-        )}
       </div>
+
       <a
         // href={`${PUBLIC_ROUTES.EXPLORE_PAGE}?type=single`}
         href={`${PUBLIC_ROUTES.EXPLORE_PAGE}`}
